@@ -7,4 +7,24 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="data\" />
+    <None Remove="logic\" />
+    <None Remove="ui\" />
+    <None Remove="data\repo\" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="NUnit" />
+    <None Remove="NUnit3TestAdapter" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="data\" />
+    <Folder Include="logic\" />
+    <Folder Include="ui\" />
+    <Folder Include="data\repo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
+  </ItemGroup>
 </Project>
