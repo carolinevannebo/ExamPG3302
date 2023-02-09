@@ -23,6 +23,7 @@ public class MainRepositoryTests
 
         // Assert
         Assert.That(result, Is.Not.Null);
+        Assert.That(result.idDrink, Is.Not.Null);
     }
 
     [Test]
@@ -36,24 +37,28 @@ public class MainRepositoryTests
 
         //Assert
         Assert.That(result, Is.Not.Null);
-
+        Assert.That(result.idDrink, Is.Not.Null);
     }
 
     [Test]
     public async Task GetCocktailRecipeByFirstLetter_ReturnsData()
     {
         // Arrange
-        string firstLetter = "a";
+        string firstLetter = "w";
 
         // Act
         var result = await _mainRepository.GetCocktailRecipeByFirstLetter(firstLetter);
 
         // Assert
         Assert.That(result, Is.Not.Null);
+        if (result != null)
+        {
+            Assert.That(string.IsNullOrEmpty(result.idDrink), Is.False);
+        }
     }
 
     [Test]
-    public async Task GetCocktailRecipeByIngredient_ReturnData()
+    public async Task GetCocktailRecipeByIngredient_ReturnsData()
     {
         // Arrange
         string ingredient = "vodka";
@@ -63,5 +68,10 @@ public class MainRepositoryTests
 
         // Assert
         Assert.That(result, Is.Not.Null);
+        if (result != null)
+        {
+            Assert.That(string.IsNullOrEmpty(result.idIngredient), Is.False);
+        }
     }
+
 }
