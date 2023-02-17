@@ -5,7 +5,6 @@ namespace exam.ui
     {
         #region
         public string userName;
-        public string choice;
         #endregion
 
         public void PrintInitialWelcome()
@@ -57,8 +56,21 @@ namespace exam.ui
             Console.WriteLine("1: Random cocktail recipe");
             Console.WriteLine("2: Search for cocktail recipe");
             Console.WriteLine("3: Research ingredients");
-            Console.WriteLine("4: Find coktail based on your current mood");
-            Console.WriteLine("5: Quit");
+            Console.WriteLine("4: Browse your saved recipes");
+            Console.WriteLine("5: Find coktail based on your current mood");
+            Console.WriteLine("6: Quit program");
+            Console.WriteLine("");
+        }
+
+        public void PrintSecondMenu()
+        {
+            Console.WriteLine("");
+            Console.WriteLine($"Is there anything else I can do for you, {userName}?");
+            Console.WriteLine("");
+            Console.WriteLine("1: Save this recipe");
+            Console.WriteLine("2: Go back to main menu");
+            Console.WriteLine("3: Quit program");
+            Console.WriteLine("");
         }
     }
 }
