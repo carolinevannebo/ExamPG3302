@@ -4,7 +4,7 @@ using exam.logic;
 
 namespace exam.data.repo
 {
-    public class MainRepository
+    public partial class MainRepository
     {
 
         #region Properties
@@ -36,7 +36,7 @@ namespace exam.data.repo
 
         public async Task<CocktailRecipe> GetCocktailRecipeByFirstLetter(string input)
         {
-            if (!Regex.IsMatch(input, @"^[a-zA-Z]$"))
+            if (!MyRegex().IsMatch(input))
             {
                 throw new ArgumentException("Input must be a single letter");
             }
@@ -55,25 +55,23 @@ namespace exam.data.repo
 
         private static async Task<RootObject> GetJsonFromServer(string endpoint)
         {
-            using (var httpClient = new HttpClient())
+            using var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync(endpoint);
+            if (response == null)
             {
-                var response = await httpClient.GetAsync(endpoint);
-                if (response == null)
-                {
-                    throw new NullReferenceException("Response from API is null");
-                }
-
-                var data = await response.Content.ReadAsStringAsync();
-                if (string.IsNullOrEmpty(data))
-                {
-                    throw new NullReferenceException("Data from API is null or empty");
-                }
-
-                // parse the JSON data
-                var json = JsonConvert.DeserializeObject<RootObject>(data);
-
-                return json!;
+                throw new NullReferenceException("Response from API is null");
             }
+
+            var data = await response.Content.ReadAsStringAsync();
+            if (string.IsNullOrEmpty(data))
+            {
+                throw new NullReferenceException("Data from API is null or empty");
+            }
+
+            // parse the JSON data
+            var json = JsonConvert.DeserializeObject<RootObject>(data);
+
+            return json!;
         }
 
         private static CocktailRecipe ConvertJsonToCocktailRecipe(RootObject json)
@@ -130,6 +128,9 @@ namespace exam.data.repo
 
             return ingredient;
         }
+
+        [GeneratedRegex("^[a-zA-Z]$")]
+        private static partial Regex MyRegex();
 
 
 

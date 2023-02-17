@@ -19,10 +19,11 @@ namespace exam.logic
 
         public override string ToString()
         {
-            var ingredients = string.Join(", ", strIngredients);
-            var steps = string.Join("\n", strMeasurements.Select((s, i) => $"{i + 1}. {s}"));
+            //var ingredients = string.Join(", ", strIngredients);
+            var ingredients = string.Join("\n", strIngredients.Select((s, i) => $" {i + 1}. {s}"));
+            var steps = string.Join("\n", strMeasurements.Select((s, i) => $" {i + 1}. {s}"));
 
-            return $"Name: {strDrink}\n Category: {strAlcoholic}\n Alcoholic: {strAlcoholic}\n Glass: {strGlass}\n Instructions: {strInstructions}\n Ingredients: {ingredients}\n Measurements:\n {steps}";
+            return $"Name: {strDrink}\nCategory: {strAlcoholic}\nAlcoholic: {strAlcoholic}\nGlass: {strGlass}\n\nIngredients:\n{ingredients}\n\nMeasurements:\n{steps}\n\nInstructions:\n{strInstructions}";
         }
         #endregion
     }
