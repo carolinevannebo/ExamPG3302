@@ -1,11 +1,14 @@
 ﻿using System;
+using exam.data.json;
+
 namespace exam.ui
 {
     public class DisplayMessages
     {
         #region
-        public string userName;
+        public string? userName;
         #endregion
+
 
         public void PrintInitialWelcome()
         {
@@ -16,10 +19,18 @@ namespace exam.ui
             Console.WriteLine("");
             Console.WriteLine("What is your name?");
             Console.WriteLine("");
-            userName = Console.ReadLine();
-            Console.Clear();
 
-            PrintSecondWelcome();
+            userName = Console.ReadLine();
+
+            // Save the username to a JSON file
+            var userData = new UserData();
+            if (userName != null)
+            {
+                var userDataModel = new UserDataModel(userName);
+                userData.Save(userDataModel);
+                Console.Clear();
+                PrintSecondWelcome();
+            }
         }
 
         public void PrintSecondWelcome()
@@ -44,12 +55,17 @@ namespace exam.ui
                 Console.WriteLine("");
                 Console.WriteLine("Neither a yes or no? I interpret that as a yes! Let's start.");
             }
-            Thread.Sleep(3000); // tiny delay
+            Thread.Sleep(2500); // tiny delay
             PrintInitialMenu();
         }
 
         public void PrintInitialMenu()
         {
+            //hent brukernavn
+            var userData = new UserData();
+            var jsonUserName = userData.Load();
+            userName = jsonUserName.UserName;
+
             Console.Clear();
             Console.WriteLine($"How may I be of service today, {userName}?");
             Console.WriteLine("");
@@ -57,19 +73,32 @@ namespace exam.ui
             Console.WriteLine("2: Search for cocktail recipe");
             Console.WriteLine("3: Research ingredients");
             Console.WriteLine("4: Browse your saved recipes");
-            Console.WriteLine("5: Find coktail based on your current mood");
+            Console.WriteLine("5: Find cocktail based on your current mood");
             Console.WriteLine("6: Quit program");
             Console.WriteLine("");
         }
 
         public void PrintSecondMenu()
         {
+            //hent brukernavn
+            var userData = new UserData();
+            var jsonUserName = userData.Load();
+            userName = jsonUserName.UserName;
+
             Console.WriteLine("");
             Console.WriteLine($"Is there anything else I can do for you, {userName}?");
             Console.WriteLine("");
             Console.WriteLine("1: Save this recipe");
             Console.WriteLine("2: Go back to main menu");
             Console.WriteLine("3: Quit program");
+            Console.WriteLine("");
+        }
+
+        public void PrintSearchMenu()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("1: Search by name");
+            Console.WriteLine("2: Search by first letter");
             Console.WriteLine("");
         }
     }

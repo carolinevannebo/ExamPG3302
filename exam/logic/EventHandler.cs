@@ -1,17 +1,15 @@
 ﻿using System;
 using exam.data.repo;
+using exam.data.json;
 using exam.ui;
 
 namespace exam.logic
 {
     public class EventHandler
     {
-        MainRepository mainRepository = new MainRepository();
-        DisplayMessages displayMessages = new DisplayMessages();
+        readonly MainRepository mainRepository = new();
+        readonly DisplayMessages displayMessages = new();
 
-        public EventHandler()
-        {
-        }
 
         public void SecondMenu() {
             bool isRunning = true; // refactor
@@ -19,6 +17,11 @@ namespace exam.logic
             {
                 try
                 {
+                    //hent brukernavn
+                    var userData = new UserData();
+                    var jsonUserName = userData.Load();
+                    var userName = jsonUserName.UserName;
+
                     displayMessages.PrintSecondMenu();
                     var choice = Console.ReadKey();
 
@@ -32,12 +35,13 @@ namespace exam.logic
                             return;
                         case ConsoleKey.D3:
                             Console.WriteLine("");
-                            Console.WriteLine($"Goodbye {displayMessages.userName}");
+                            Console.WriteLine($"Goodbye {userName}");
                             isRunning = false;
                             return;
                         default:
                             Console.WriteLine("");
                             Console.WriteLine("Your choice was not recognized: " + choice);
+                            SecondMenu();
                             return;
                     }
 
@@ -57,6 +61,52 @@ namespace exam.logic
             SecondMenu();
         }
 
+        public void TriggerChoice2FromInitialMenu()
+        {
+            //hent brukernavn
+            var userData = new UserData();
+            var jsonUserName = userData.Load();
+            var userName = jsonUserName.UserName;
+
+            displayMessages.PrintSearchMenu();
+            var choice = Console.ReadKey();
+
+            switch (choice.Key)
+            {
+                case ConsoleKey.D1:
+                    Console.WriteLine("");
+                    Console.WriteLine("Please type the recipe name you're looking for");
+                    Console.WriteLine("");
+
+                    var inputName = Console.ReadLine();
+                    var recipeName = mainRepository.GetCocktailRecipeByName(inputName).Result;
+
+                    Console.WriteLine("");
+                    Console.WriteLine(recipeName.ToString());
+                    SecondMenu();
+                    break;
+
+                case ConsoleKey.D2:
+                    Console.WriteLine("");
+                    Console.WriteLine($"I require a letter. Would you be so kind to give me one, {userName}?");
+                    Console.WriteLine("");
+
+                    var inputLetter = Console.ReadKey();
+                    var recipeLetter = mainRepository.GetCocktailRecipeByFirstLetter(inputLetter.ToString()).Result; //input must be one letter bug
+
+                    Console.WriteLine("");
+                    Console.WriteLine(recipeLetter.ToString());
+                    SecondMenu();
+                    break;
+
+                default:
+                    Console.WriteLine("");
+                    Console.WriteLine("Your choice was not recognized: " + choice);
+                    TriggerChoice2FromInitialMenu();
+                    break;
+            }
+        }
+
         public void InitialMenu()
         {
             bool isRunning = true; // refactor
@@ -64,33 +114,52 @@ namespace exam.logic
             {
                 try
                 {
+                    //hent brukernavn
+                    var userData = new UserData();
+                    var jsonUserName = userData.Load();
+                    var userName = jsonUserName.UserName;
+
                     displayMessages.PrintInitialMenu();
                     var choice = Console.ReadKey();
 
                     switch (choice.Key)
                     {
                         case ConsoleKey.D1:
+                            Console.WriteLine("");
+                            Console.WriteLine("==== Random Cocktail Recipe ====");
                             TriggerChoice1FromInitialMenu();
                             return;
                         case ConsoleKey.D2:
                             Console.WriteLine("");
-                            Console.WriteLine("Under construction...");
+                            Console.WriteLine("==== Search Cocktail Recipe ====");
+                            TriggerChoice2FromInitialMenu();
                             return;
                         case ConsoleKey.D3:
                             Console.WriteLine("");
+                            Console.WriteLine("==== Research Ingredient ====");
+                            Console.WriteLine("");
                             Console.WriteLine("Under construction...");
+                            SecondMenu();
                             return;
                         case ConsoleKey.D4:
                             Console.WriteLine("");
+                            Console.WriteLine("==== Browse Saved Recipes ====");
+                            Console.WriteLine("");
                             Console.WriteLine("Under construction...");
+                            SecondMenu();
                             return;
                         case ConsoleKey.D5:
                             Console.WriteLine("");
+                            Console.WriteLine("==== Which Cocktail Should You Prepare Quiz ====");
+                            Console.WriteLine("");
                             Console.WriteLine("Under construction...");
+                            SecondMenu();
                             return;
                         case ConsoleKey.D6:
                             Console.WriteLine("");
-                            Console.WriteLine($"Goodbye {displayMessages.userName}");
+                            Console.WriteLine("==== Quit Program ====");
+                            Console.WriteLine("");
+                            Console.WriteLine($"Goodbye {userName}");
                             isRunning = false;
                             return;
                         default:

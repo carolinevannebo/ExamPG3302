@@ -15,12 +15,14 @@
     <None Remove="Newtonsoft.Json" />
     <None Remove="NUnit" />
     <None Remove="NUnit3TestAdapter" />
+    <None Remove="data\json\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
     <Folder Include="logic\" />
     <Folder Include="ui\" />
     <Folder Include="data\repo\" />
+    <Folder Include="data\json\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
