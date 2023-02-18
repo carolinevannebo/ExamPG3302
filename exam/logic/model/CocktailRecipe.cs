@@ -10,8 +10,8 @@ namespace exam.logic
         public string strAlcoholic { get; set; }
         public string strGlass { get; set; }
         public string strInstructions { get; set; }
-        public string[] strIngredients { get; set; } // alt som inneholder strIngredient i name, inkluder null pga index
-        public string[] strMeasurements { get; set; } // du må sjekke at det er lik index ˆ
+        public string[] strIngredients { get; set; }
+        public string[] strMeasurements { get; set; }
 
         #endregion
 
@@ -19,7 +19,6 @@ namespace exam.logic
 
         public override string ToString()
         {
-            //var ingredients = string.Join(", ", strIngredients);
             var ingredients = string.Join("\n", strIngredients.Select((s, i) => $" {i + 1}. {s}"));
             var steps = string.Join("\n", strMeasurements.Select((s, i) => $" {i + 1}. {s}"));
 
@@ -28,4 +27,3 @@ namespace exam.logic
         #endregion
     }
 }
-
