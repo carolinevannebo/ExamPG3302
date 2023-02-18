@@ -15,11 +15,10 @@ namespace exam
             try
             {
                 displayMessages.PrintInitialWelcome();
-                var userData = new UserData();
                 eventHandler.InitialMenu();
-            } catch (IOException e)
+            } catch (Exception e)
             {
-               //todo string? stackTrace = e.StackTrace <--- print stacktrace
+                Console.WriteLine($"An error occurred while starting the program: {e.Message}");
             }
         }
     }

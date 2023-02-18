@@ -56,7 +56,7 @@ namespace exam.ui
                 Console.WriteLine("Neither a yes or no? I interpret that as a yes! Let's start.");
             }
             Thread.Sleep(2500); // tiny delay
-            PrintInitialMenu();
+            Console.Clear();
         }
 
         public void PrintInitialMenu()
@@ -66,7 +66,6 @@ namespace exam.ui
             var jsonUserName = userData.Load();
             userName = jsonUserName.UserName;
 
-            Console.Clear();
             Console.WriteLine($"How may I be of service today, {userName}?");
             Console.WriteLine("");
             Console.WriteLine("1: Random cocktail recipe");

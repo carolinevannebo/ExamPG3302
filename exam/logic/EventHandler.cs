@@ -1,6 +1,7 @@
 ﻿using System;
 using exam.data.repo;
 using exam.data.json;
+using exam.data.database;
 using exam.ui;
 
 namespace exam.logic
@@ -16,7 +17,7 @@ namespace exam.logic
 
         #region Methods
 
-        public void SecondMenu() {
+        public void SecondMenu(CocktailRecipe cocktail) {
             bool isRunning = true; // refactor
             while(isRunning)
             {
@@ -33,7 +34,20 @@ namespace exam.logic
                     switch (choice.Key)
                     {
                         case ConsoleKey.D1:
-                            Console.WriteLine("Under construction...");
+                            Console.WriteLine("");
+                            Console.WriteLine("Saving recipe...");
+                            try
+                            {
+                                // Insert the cocktail into the database
+                                DatabaseHelper.InsertCocktail(cocktail);
+                                Console.WriteLine("Success!");
+                                InitialMenu();
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine($"An error occurred while saving the cocktail: {e.Message}");
+                                InitialMenu();
+                            }
                             return;
                         case ConsoleKey.D2:
                             InitialMenu();
@@ -46,7 +60,7 @@ namespace exam.logic
                         default:
                             Console.WriteLine("");
                             Console.WriteLine("Your choice was not recognized: " + choice);
-                            SecondMenu();
+                            SecondMenu(cocktail);
                             return;
                     }
 
@@ -63,7 +77,7 @@ namespace exam.logic
             var randomRecipe = mainRepository.GetRandomCocktailRecipe().Result;
             Console.WriteLine("");
             Console.WriteLine(randomRecipe.ToString());
-            SecondMenu();
+            SecondMenu(randomRecipe);
         }
 
         public void TriggerChoice2FromInitialMenu()
@@ -88,7 +102,7 @@ namespace exam.logic
 
                     Console.WriteLine("");
                     Console.WriteLine(recipeName.ToString());
-                    SecondMenu();
+                    SecondMenu(recipeName);
                     break;
 
                 case ConsoleKey.D2:
@@ -101,7 +115,7 @@ namespace exam.logic
 
                     Console.WriteLine("");
                     Console.WriteLine(recipeLetter.ToString());
-                    SecondMenu();
+                    SecondMenu(recipeLetter);
                     break;
 
                 default:
@@ -123,7 +137,7 @@ namespace exam.logic
 
             Console.WriteLine("");
             Console.WriteLine(ingredient.ToString());
-            SecondMenu(); // non-user friendly, shouldnt save an ingredient as recipe
+            //SecondMenu(); // non-user friendly, shouldnt save an ingredient as recipe
         }
 
         public void InitialMenu()
@@ -163,14 +177,20 @@ namespace exam.logic
                             Console.WriteLine("==== Browse Saved Recipes ====");
                             Console.WriteLine("");
                             Console.WriteLine("Under construction...");
-                            SecondMenu();
+                            /* todo
+                            // Retrieve the cocktail from the database by its ID
+                                CocktailRecipe retrievedCocktail = DatabaseHelper.GetCocktailById("12345");
+                            // Retrieve all cocktails from the database
+                                List<CocktailRecipe> allCocktails = DatabaseHelper.GetAllCocktails();
+                             */
+                            //SecondMenu();
                             return;
                         case ConsoleKey.D5:
                             Console.WriteLine("");
                             Console.WriteLine("==== Which Cocktail Should You Prepare Quiz ====");
                             Console.WriteLine("");
                             Console.WriteLine("Under construction...");
-                            SecondMenu();
+                            //SecondMenu();
                             return;
                         case ConsoleKey.D6:
                             Console.WriteLine("");

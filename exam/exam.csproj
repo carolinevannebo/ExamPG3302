@@ -21,6 +21,7 @@
     <None Remove="Microsoft.Data.Sqlite" />
     <None Remove="Microsoft.AspNetCore.Mvc.DataAnnotations" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+    <None Remove="System.Data.SQLite" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
@@ -38,5 +39,6 @@
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.3" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
   </ItemGroup>
 </Project>
