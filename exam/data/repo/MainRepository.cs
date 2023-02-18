@@ -46,7 +46,7 @@ namespace exam.data.repo
             //return await GetDataFromServer(_searchEndpoint + _searchEndpointByFirstLetter + input);
         }
 
-        public async Task<Ingredient> GetCocktailRecipeByIngredient(string input)
+        public async Task<Ingredient> GetIngredient(string input)
         {
             var data = await GetJsonFromServer(_searchEndpoint + _searchEndpointByIngredient + input);
             return ConvertJsonToIngredient(data);
@@ -132,119 +132,6 @@ namespace exam.data.repo
         [GeneratedRegex("^[a-zA-Z]$")]
         private static partial Regex MyRegex();
 
-
-
-
-        /*private static async Task<CocktailRecipe> GetDataFromServer(string endpoint)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.GetAsync(endpoint);
-                if (response == null)
-                {
-                    throw new NullReferenceException("Response from API is null");
-                }
-
-                var data = await response.Content.ReadAsStringAsync();
-                if (string.IsNullOrEmpty(data))
-                {
-                    throw new NullReferenceException("Data from API is null or empty");
-                }
-
-                // parse the JSON data
-                var json = JsonConvert.DeserializeObject<RootObject>(data);
-
-                var jsonDrink = json!.drinks[0];
-
-                // create a new CocktailRecipe object
-                var recipe = new CocktailRecipe
-                {
-                    idDrink = jsonDrink.idDrink,
-                    strDrink = jsonDrink.strDrink,
-                    strCategory = jsonDrink.strCategory,
-                    strAlcoholic = jsonDrink.strAlcoholic,
-                    strGlass = jsonDrink.strGlass,
-                    strInstructions = jsonDrink.strInstructions
-                };
-
-                // create arrays to store the ingredients and measurements
-                var ingredients = new List<string>();
-                var measurements = new List<string>();
-
-                // loop through the ingredients and add them to the arrays
-                for (int i = 1; i <= 15; i++)
-                {
-                    var ingredient = jsonDrink.GetType().GetProperty("strIngredient" + i)?.GetValue(jsonDrink, null)?.ToString();
-                    if (ingredient != null)
-                    {
-                        ingredients.Add(ingredient);
-                        var measurement = jsonDrink.GetType().GetProperty("strMeasure" + i)?.GetValue(jsonDrink, null)?.ToString();
-                        measurements.Add(measurement ?? string.Empty);
-                    }
-                }
-
-                // assign the arrays to the CocktailRecipe object
-                recipe.strIngredients = ingredients.ToArray();
-                recipe.strMeasurements = measurements.ToArray();
-
-                return recipe;
-            }
-        }*/
         #endregion
     }
 }
-
-/*
- * var jsonDrink = json!.drinks[0];
-
-                // create a new CocktailRecipe object
-                var recipe = new CocktailRecipe
-                {
-                    idDrink = jsonDrink.idDrink,
-                    strDrink = jsonDrink.strDrink,
-                    strCategory = jsonDrink.strCategory,
-                    strAlcoholic = jsonDrink.strAlcoholic,
-                    strGlass = jsonDrink.strGlass,
-                    strInstructions = jsonDrink.strInstructions
-                };
-
-                // create arrays to store the ingredients and measurements
-                var ingredients = new List<string>();
-                var measurements = new List<string>();
-
-                // loop through the ingredients and add them to the arrays
-                for (int i = 1; i <= 15; i++)
-                {
-                    var ingredient = jsonDrink.GetType().GetProperty("strIngredient" + i)?.GetValue(jsonDrink, null)?.ToString();
-                    if (ingredient != null)
-                    {
-                        ingredients.Add(ingredient);
-                        var measurement = jsonDrink.GetType().GetProperty("strMeasure" + i)?.GetValue(jsonDrink, null)?.ToString();
-                        measurements.Add(measurement ?? string.Empty);
-                    }
-                }
-
-                // assign the arrays to the CocktailRecipe object
-                recipe.strIngredients = ingredients.ToArray();
-                recipe.strMeasurements = measurements.ToArray();
-
-                return recipe;
- */
-
-/*
- var jsonIngredient = json.ingredients[0];
-
- if (jsonIngredient != null)
-                {
-                    var ingredient = new Ingredient
-                    {
-                        idIngredient = jsonIngredient.idIngredient,
-                        strIngredient = jsonIngredient.strIngredient,
-                        strDescription = jsonIngredient.strDescription,
-                        strType = jsonIngredient.strType,
-                        strAlcohol = jsonIngredient.strAlcohol,
-                        strABV = jsonIngredient.strABV
-                    };
-
-                    return ingredient;
-                }*/

@@ -64,7 +64,7 @@ public class MainRepositoryTests
         string ingredient = "vodka";
 
         // Act
-        var result = await _mainRepository.GetCocktailRecipeByIngredient(ingredient);
+        var result = await _mainRepository.GetIngredient(ingredient);
 
         // Assert
         Assert.That(result, Is.Not.Null);

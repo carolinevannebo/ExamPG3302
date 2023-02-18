@@ -7,9 +7,14 @@ namespace exam.logic
 {
     public class EventHandler
     {
+        #region Properties
+
         readonly MainRepository mainRepository = new();
         readonly DisplayMessages displayMessages = new();
 
+        #endregion
+
+        #region Methods
 
         public void SecondMenu() {
             bool isRunning = true; // refactor
@@ -79,7 +84,7 @@ namespace exam.logic
                     Console.WriteLine("");
 
                     var inputName = Console.ReadLine();
-                    var recipeName = mainRepository.GetCocktailRecipeByName(inputName).Result;
+                    var recipeName = mainRepository.GetCocktailRecipeByName(inputName).Result; //må ha exception handling
 
                     Console.WriteLine("");
                     Console.WriteLine(recipeName.ToString());
@@ -92,7 +97,7 @@ namespace exam.logic
                     Console.WriteLine("");
 
                     var inputLetter = Console.ReadKey();
-                    var recipeLetter = mainRepository.GetCocktailRecipeByFirstLetter(inputLetter.ToString()).Result; //input must be one letter bug
+                    var recipeLetter = mainRepository.GetCocktailRecipeByFirstLetter(inputLetter.KeyChar.ToString()).Result; //må ha exception handling
 
                     Console.WriteLine("");
                     Console.WriteLine(recipeLetter.ToString());
@@ -105,6 +110,20 @@ namespace exam.logic
                     TriggerChoice2FromInitialMenu();
                     break;
             }
+        }
+
+        public void TriggerChoice3FromInitialMenu()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Please let me know which ingredient you'd like to know about");
+            Console.WriteLine("");
+
+            var input = Console.ReadLine();
+            var ingredient = mainRepository.GetIngredient(input!.ToString()).Result;
+
+            Console.WriteLine("");
+            Console.WriteLine(ingredient.ToString());
+            SecondMenu(); // non-user friendly, shouldnt save an ingredient as recipe
         }
 
         public void InitialMenu()
@@ -137,9 +156,7 @@ namespace exam.logic
                         case ConsoleKey.D3:
                             Console.WriteLine("");
                             Console.WriteLine("==== Research Ingredient ====");
-                            Console.WriteLine("");
-                            Console.WriteLine("Under construction...");
-                            SecondMenu();
+                            TriggerChoice3FromInitialMenu();
                             return;
                         case ConsoleKey.D4:
                             Console.WriteLine("");
@@ -174,6 +191,6 @@ namespace exam.logic
                 }
             }
         }
+        #endregion
     }
 }
-

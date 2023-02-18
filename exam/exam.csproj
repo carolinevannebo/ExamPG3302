@@ -16,6 +16,7 @@
     <None Remove="NUnit" />
     <None Remove="NUnit3TestAdapter" />
     <None Remove="data\json\" />
+    <None Remove="logic\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
@@ -23,6 +24,7 @@
     <Folder Include="ui\" />
     <Folder Include="data\repo\" />
     <Folder Include="data\json\" />
+    <Folder Include="logic\Models\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
