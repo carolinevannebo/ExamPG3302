@@ -5,14 +5,15 @@ namespace exam.logic
 {
     public class QuizLogic
     {
-        private Dictionary<string, List<string>> GetQuiz()
+        public List<QuestionTemplate> GetQuiz()
         {
             // Create a new instance of the FileReader class
             FileReader fileReader = new FileReader("../../../data/quiz/quiz.txt"); // finner ikke fil
 
             // Read and parse the quiz file
-            Dictionary<string, List<string>> quizData = fileReader.ReadQuizFile();
-
+            var quizData = fileReader.ReadQuizFile();
+            var quizDataArray = quizData.ToArray();
+            Console.WriteLine(quizDataArray[0].ToString());
             return quizData;
         }
 
@@ -21,15 +22,12 @@ namespace exam.logic
             var quizData = GetQuiz();
 
             // Print the questions and answer options
-            foreach (KeyValuePair<string, List<string>> entry in quizData)
+            foreach (var question in quizData)
             {
-                Console.WriteLine(entry.Key);
-                foreach (string answer in entry.Value)
-                {
-                    Console.WriteLine("- " + answer);
-                }
+                Console.WriteLine(question.ToString());
             }
         }
+
     }
 }
 

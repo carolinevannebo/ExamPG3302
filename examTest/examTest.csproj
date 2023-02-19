@@ -32,9 +32,11 @@
     <None Remove="Microsoft.AspNetCore.Mvc.DataAnnotations" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="System.Data.SQLite" />
+    <None Remove="logic\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
     <Folder Include="data\repo\" />
+    <Folder Include="logic\" />
   </ItemGroup>
 </Project>
