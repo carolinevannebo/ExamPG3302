@@ -6,7 +6,7 @@ using exam.ui;
 
 namespace exam.logic
 {
-    public class EventHandler
+    public class EventHandler //todo bruk solid til å dele opp denne klassen, er ganske mange funksjoner
     {
         #region Properties
 
@@ -178,7 +178,7 @@ namespace exam.logic
                             Console.WriteLine("==== Browse Saved Recipes ====");
                             Console.WriteLine("");
                             Console.WriteLine("Under construction...");
-                            //todo
+                            //todo brukeren bør kunne se en kort oversikt, velge oppskriften de vil se og kunne slette den
                             // Retrieve the cocktail from the database by its ID
                             //    CocktailRecipe retrievedCocktail = DatabaseHelper.GetCocktailById("12345");
                             // Retrieve all cocktails from the database
@@ -192,7 +192,7 @@ namespace exam.logic
                                 Console.WriteLine($"You have not saved any cocktail recipes yet, {userName}.");
                                 Console.WriteLine("");
                             }
-                            //vanlig meny
+                            //todo en annen meny så caset ikke rekker return aka quit
                             
                             return;
                         case ConsoleKey.D5:
