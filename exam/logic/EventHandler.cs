@@ -41,6 +41,7 @@ namespace exam.logic
                                 // Insert the cocktail into the database
                                 DatabaseHelper.InsertCocktail(cocktail);
                                 Console.WriteLine("Success!");
+                                Console.WriteLine("");
                                 InitialMenu();
                             }
                             catch (Exception e)
@@ -177,13 +178,22 @@ namespace exam.logic
                             Console.WriteLine("==== Browse Saved Recipes ====");
                             Console.WriteLine("");
                             Console.WriteLine("Under construction...");
-                            /* todo
+                            //todo
                             // Retrieve the cocktail from the database by its ID
-                                CocktailRecipe retrievedCocktail = DatabaseHelper.GetCocktailById("12345");
+                            //    CocktailRecipe retrievedCocktail = DatabaseHelper.GetCocktailById("12345");
                             // Retrieve all cocktails from the database
-                                List<CocktailRecipe> allCocktails = DatabaseHelper.GetAllCocktails();
-                             */
-                            //SecondMenu();
+                            List<CocktailRecipe> allCocktails = DatabaseHelper.GetAllCocktails();
+                            if (allCocktails != null)
+                            {
+                                Console.WriteLine(allCocktails[0].ToString());
+                            }
+                            else if (allCocktails == null)
+                            {
+                                Console.WriteLine($"You have not saved any cocktail recipes yet, {userName}.");
+                                Console.WriteLine("");
+                            }
+                            //vanlig meny
+                            
                             return;
                         case ConsoleKey.D5:
                             Console.WriteLine("");

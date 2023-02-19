@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace exam.logic
 {
     public class CocktailRecipe
