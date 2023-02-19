@@ -12,6 +12,7 @@ namespace exam.ui
 
         public void PrintInitialWelcome()
         {
+            Console.Clear();
             Console.WriteLine("Welcome! Let me introduce myself: ");
             Console.WriteLine("My name is Quinton, your personal bartender assistant.");
             Console.WriteLine("I'm here to help you find your desired cocktail recipes.");
@@ -39,6 +40,12 @@ namespace exam.ui
             Console.WriteLine("Are you ready to make some cocktails? (y/n)");
             Console.WriteLine("");
             var input = Console.ReadKey();
+
+            // Check if more than one key was pressed
+            if (input.KeyChar != '\0')
+            {
+                input = new ConsoleKeyInfo(input.KeyChar, input.Key, false, false, false);
+            }
 
             if (input.Key == ConsoleKey.Y)
             {

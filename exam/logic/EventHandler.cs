@@ -6,7 +6,7 @@ using exam.ui;
 
 namespace exam.logic
 {
-    public class EventHandler //todo bruk solid til å dele opp denne klassen, er ganske mange funksjoner
+    public class EventHandler //todo bruk solid til å dele opp denne klassen, er ganske mange funksjoner, kanskje hvert valg er en egen klasse?
     {
         #region Properties
 
@@ -83,7 +83,7 @@ namespace exam.logic
 
         public void TriggerChoice2FromInitialMenu()
         {
-            //hent brukernavn
+            //hent brukernavn -- dette kan refaktoreres til en metode som returnerer string
             var userData = new UserData();
             var jsonUserName = userData.Load();
             var userName = jsonUserName.UserName;
@@ -192,6 +192,7 @@ namespace exam.logic
                                 Console.WriteLine($"You have not saved any cocktail recipes yet, {userName}.");
                                 Console.WriteLine("");
                             }
+                            InitialMenu(); //todo midlertidig løsning
                             //todo en annen meny så caset ikke rekker return aka quit
                             
                             return;
@@ -200,6 +201,8 @@ namespace exam.logic
                             Console.WriteLine("==== Which Cocktail Should You Prepare Quiz ====");
                             Console.WriteLine("");
                             Console.WriteLine("Under construction...");
+                            QuizLogic quizLogic = new QuizLogic();
+                            quizLogic.PrintQuiz();
                             //SecondMenu();
                             return;
                         case ConsoleKey.D6:
@@ -210,8 +213,10 @@ namespace exam.logic
                             isRunning = false;
                             return;
                         default:
-                            Console.WriteLine("");
+                            Console.Clear();
                             Console.WriteLine("Your choice was not recognized: " + choice);
+                            Console.WriteLine("");
+                            InitialMenu();
                             return; // usikker på denne løsningen
                     }
                 }

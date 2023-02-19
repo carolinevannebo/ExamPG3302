@@ -12,6 +12,11 @@ namespace exam.data.database
             database.InsertCocktail(cocktail);
         }
 
+        public static void DeleteCocktail(CocktailRecipe cocktail)
+        {
+            database.DeleteCocktail(cocktail);
+        }
+
         public static CocktailRecipe GetCocktailById(string id)
         {
             return database.GetCocktailById(id);

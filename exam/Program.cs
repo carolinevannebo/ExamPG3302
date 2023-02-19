@@ -1,7 +1,4 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using exam.data.json;
-using exam.data.repo;
-using exam.logic;
 using exam.ui;
 
 namespace exam
@@ -14,11 +11,16 @@ namespace exam
             var displayMessages = new DisplayMessages();
             try
             {
+                Console.WriteLine("Starting the program...");
+                Console.WriteLine("");
+
                 displayMessages.PrintInitialWelcome();
                 eventHandler.InitialMenu();
+
             } catch (Exception e)
             {
                 Console.WriteLine($"An error occurred while starting the program: {e.Message}");
+                Console.WriteLine(e.StackTrace);
             }
         }
     }

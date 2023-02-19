@@ -1,0 +1,37 @@
+What Kind of Cocktail Would You Be?
+
+1. Which word best describes you?
+a) Adventurous
+b) Calm
+c) Confident
+d) Fun-loving
+
+2. What's your favorite way to spend a night out?
+a) Dancing at a club
+b) Having dinner with friends
+c) Checking out a new bar
+d) Watching a movie
+
+3. Pick a color:
+a) Red
+b) Blue
+c) Green
+d) Purple
+
+4. Which flavor do you prefer?
+a) Spicy
+b) Sweet
+c) Sour
+d) Bitter
+
+5. What's your preferred cocktail ingredient?
+a) Vodka
+b) Gin
+c) Rum
+d) Tequila
+
+Results:
+If you mostly answered A's, you're a spicy Margarita!
+If you mostly answered B's, you're a classic Gin and Tonic!
+If you mostly answered C's, you're a Mojito!
+If you mostly answered D's, you're an Old Fashioned!
