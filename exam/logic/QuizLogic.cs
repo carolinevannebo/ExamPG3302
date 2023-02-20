@@ -5,6 +5,8 @@ namespace exam.logic
 {
     public class QuizLogic
     {
+        private List<string> answers = new List<string>();
+
         public List<QuestionTemplate> GetQuiz()
         {
             // Create a new instance of the FileReader class
@@ -12,23 +14,31 @@ namespace exam.logic
 
             // Read and parse the quiz file
             var quizData = fileReader.ReadQuizFile();
+
             return quizData;
         }
 
         public void PrintQuiz() // endre til print and read
         {
             var quizData = GetQuiz();
+
             if (quizData != null)
             {
                 Console.WriteLine(quizData.Count);
+
                 // Print the questions and answer options
                 foreach (var question in quizData)
                 {
                     Console.WriteLine(question.ToString());
+
                     var answer = Console.ReadKey();
-                    RegisterAnswer(question, answer);
-                    //todo RegisterAnswer() returnerer en string, bruk den og send den til lagring
+                    var answerString = RegisterAnswer(question, answer);
+
+                    answers.Add(answerString);
                 }
+
+                var xmlFileWriter = new XmlFileWriter();
+                xmlFileWriter.WriteAnswersToXml(answers);
             }
             else
             {

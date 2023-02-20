@@ -15,7 +15,6 @@
     <None Remove="Newtonsoft.Json" />
     <None Remove="NUnit" />
     <None Remove="NUnit3TestAdapter" />
-    <None Remove="data\json\" />
     <None Remove="data\database\" />
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Microsoft.Data.Sqlite" />
@@ -29,7 +28,6 @@
     <Folder Include="logic\" />
     <Folder Include="ui\" />
     <Folder Include="data\repo\" />
-    <Folder Include="data\json\" />
     <Folder Include="data\database\" />
     <Folder Include="data\quiz\" />
   </ItemGroup>
