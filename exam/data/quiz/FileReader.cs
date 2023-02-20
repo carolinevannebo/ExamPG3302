@@ -13,7 +13,7 @@ namespace exam.data.quiz
             this.filePath = filePath;
         }
 
-        public List<QuestionTemplate> ReadQuizFile2()
+        public List<QuestionTemplate> ReadQuizFile()
         {
             var quizData = new List<QuestionTemplate>();
 
@@ -48,7 +48,7 @@ namespace exam.data.quiz
             return quizData;
         }
 
-        public List<QuestionTemplate> ReadQuizFile()
+        public List<QuestionTemplate> ReadQuizFile1()
         {
             var quizData = new List<QuestionTemplate>();
 
