@@ -18,9 +18,39 @@ namespace exam.data.quiz
             OptionD = optionD;
         }
 
+        public QuestionTemplate(string content)
+        {
+            string[] contentLines = content.Split('\n');
+
+
+            foreach (var line in contentLines)
+            {
+                var indicator = line.Substring(0, 1);
+
+                switch (indicator)
+                {
+                    case "a":
+                        OptionA = line;  // ikke egt en linje, men et element. du må endre navn
+                        break;
+                    case "b":
+                        OptionB = line;
+                        break;
+                    case "c":
+                        OptionC = line;
+                        break;
+                    case "d":
+                        OptionD = line;
+                        break;
+                    default:
+                        Question = line;
+                        break;
+                }
+            }
+        }
+
         public override string ToString()
         {
-            return $"{Question}\n\n{OptionA}\n{OptionB}\n{OptionC}\n{OptionD}";
+            return $"\n{Question}\n\n{OptionA}\n{OptionB}\n{OptionC}\n{OptionD}";
         }
     }
 }

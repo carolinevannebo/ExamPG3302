@@ -41,6 +41,7 @@ public class QuizLogicTests
         var quizData = quizLogic.GetQuiz();
 
         // Assert
+        Assert.That(quizData, Is.Not.Null);
         Assert.That(quizData, Is.InstanceOf<List<QuestionTemplate>>());
         Assert.That(quizData.Count, Is.EqualTo(5));
 
@@ -51,5 +52,6 @@ public class QuizLogicTests
         Assert.That(question.OptionC, Is.EqualTo("c) Confident"));
         Assert.That(question.OptionD, Is.EqualTo("d) Fun-loving"));
     }
+
 }
 
