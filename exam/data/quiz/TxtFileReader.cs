@@ -3,11 +3,11 @@ using System.IO;
 
 namespace exam.data.quiz
 {
-    public class FileReader
+    public class TxtFileReader
     {
         private readonly string filePath; //la til readonly
 
-        public FileReader(string filePath)
+        public TxtFileReader(string filePath)
         {
             // if (ValidateFilePath(filePath)... // Throw new exception)
             this.filePath = filePath;
@@ -48,7 +48,7 @@ namespace exam.data.quiz
             return quizData;
         }
 
-        public List<QuestionTemplate> ReadQuizFile1()
+        /*public List<QuestionTemplate> ReadQuizFile1()
         {
             var quizData = new List<QuestionTemplate>();
 
@@ -114,7 +114,7 @@ namespace exam.data.quiz
             }
 
             return quizData;
-        }
+        }*/
 
     }
 }

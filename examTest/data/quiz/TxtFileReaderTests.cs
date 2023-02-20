@@ -5,7 +5,7 @@ using exam.data.quiz;
 namespace examTest.data.quiz
 {
     [TestFixture]
-    public class FileReaderTests
+    public class TxtFileReaderTests
     {
         [Test]
         public void ReadQuizFile_ReturnsListOfQuestionTemplate()
@@ -13,7 +13,7 @@ namespace examTest.data.quiz
             // du må finne path, sensor bruker ikke din absolute path
             //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "quiz.txt");
             var filePath = "/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/quiz.txt";
-            FileReader fileReader = new FileReader(filePath);
+            TxtFileReader fileReader = new TxtFileReader(filePath);
 
             var collection = fileReader.ReadQuizFile();
             Assert.That(collection, Is.Not.Null);

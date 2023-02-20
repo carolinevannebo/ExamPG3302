@@ -10,7 +10,7 @@ namespace exam.logic
         public List<QuestionTemplate> GetQuiz()
         {
             // Create a new instance of the FileReader class
-            FileReader fileReader = new FileReader("../../../data/quiz/quiz.txt");
+            TxtFileReader fileReader = new TxtFileReader("../../../data/quiz/quiz.txt");
 
             // Read and parse the quiz file
             var quizData = fileReader.ReadQuizFile();
@@ -72,6 +72,44 @@ namespace exam.logic
                     var newAnswer = Console.ReadKey();
                     return RegisterAnswer(question, newAnswer);
             }
+        }
+
+        public void GetResults() //Kommer ikke til å funke
+        {
+            var xmlFileReader = new XmlFileReader();
+            var answerCounts = xmlFileReader.ReadAnswersFromXml("../../data/quiz/answers.xml");
+
+            // Determine the user's preferred cocktail based on their answers
+            var maxCount = 0;
+            var preferredCocktail = "";
+
+            foreach (var answerCount in answerCounts)
+            {
+                if (answerCount.Value > maxCount)
+                {
+                    maxCount = answerCount.Value;
+
+                    switch (answerCount.Key)
+                    {
+                        case "a":
+                            preferredCocktail = "Spicy Margarita";
+                            break;
+                        case "b":
+                            preferredCocktail = "Classic Gin and Tonic";
+                            break;
+                        case "c":
+                            preferredCocktail = "Mojito";
+                            break;
+                        case "d":
+                            preferredCocktail = "Old Fashioned";
+                            break;
+                    }
+                }
+            }
+
+            // Print the results
+            Console.WriteLine("Results:");
+            Console.WriteLine($"If you mostly answered A's, you're a {preferredCocktail}!");
         }
 
     }
