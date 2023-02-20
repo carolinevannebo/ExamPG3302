@@ -11,6 +11,7 @@ namespace examTest.data.quiz
         public void ReadQuizFile_ReturnsListOfQuestionTemplate()
         {
             // du må finne path, sensor bruker ikke din absolute path
+            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "quiz.txt");
             var filePath = "/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/quiz.txt";
             FileReader fileReader = new FileReader(filePath);
 

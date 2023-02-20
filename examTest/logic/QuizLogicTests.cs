@@ -19,7 +19,7 @@ public class QuizLogicTests
 
         // Act
         var quizLogic = new QuizLogic();
-        quizLogic.PrintQuiz();
+        quizLogic.PrintAndReadQuiz();
         var outputLines = consoleOutput.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
         // Assert

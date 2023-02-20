@@ -18,7 +18,7 @@ namespace exam.logic
             return quizData;
         }
 
-        public void PrintQuiz() // endre til print and read
+        public void PrintAndReadQuiz()
         {
             var quizData = GetQuiz();
 
@@ -38,7 +38,7 @@ namespace exam.logic
                 }
 
                 var xmlFileWriter = new XmlFileWriter();
-                xmlFileWriter.WriteAnswersToXml(answers);
+                xmlFileWriter.WriteAnswersToXml("answers.xml", answers); //"../../data/quiz/answers.xml"
             }
             else
             {

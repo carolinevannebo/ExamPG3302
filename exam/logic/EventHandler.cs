@@ -202,7 +202,7 @@ namespace exam.logic
                             Console.WriteLine("");
                             Console.WriteLine("Under construction...");
                             QuizLogic quizLogic = new QuizLogic();
-                            quizLogic.PrintQuiz();
+                            quizLogic.PrintAndReadQuiz();
                             //SecondMenu();
                             return;
                         case ConsoleKey.D6:

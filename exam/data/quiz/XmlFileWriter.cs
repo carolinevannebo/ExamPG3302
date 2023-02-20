@@ -5,45 +5,43 @@ namespace exam.data.quiz
 {
     public class XmlFileWriter
     {
-        public void WriteAnswersToXml(List<string> answers) // dette kan refaktoreres til egen filskriver klasse
+        public void WriteAnswersToXml(string file, List<string> answers)
         {
-            using (XmlWriter writer = XmlWriter.Create("../../data/quiz/answers.xml"))
+            var xmlFilePath = Path.Combine(Directory.GetCurrentDirectory(), $"{file}"); // dupliserer du path i test?
+            var settings = new XmlWriterSettings();
+
+            settings.Indent = true;
+
+            using (XmlWriter writer = XmlWriter.Create(xmlFilePath, settings))
             {
                 writer.WriteStartElement("Answers");
 
-                int numA = 0;
-                int numB = 0;
-                int numC = 0;
-                int numD = 0;
+                var answerCounts = new Dictionary<string, int>
+                {
+                    { "a", 0 },
+                    { "b", 0 },
+                    { "c", 0 },
+                    { "d", 0 }
+                };
 
                 foreach (var answer in answers)
                 {
-                    switch (answer)
+                    if (answerCounts.ContainsKey(answer))
                     {
-                        case "a":
-                            numA++;
-                            break;
-                        case "b":
-                            numB++;
-                            break;
-                        case "c":
-                            numC++;
-                            break;
-                        case "d":
-                            numD++;
-                            break;
+                        answerCounts[answer]++;
+                        writer.WriteElementString("Answer", answer);
                     }
-                    writer.WriteElementString("Answer", answer);
                 }
 
                 writer.WriteStartElement("Results");
-                writer.WriteElementString("A", numA.ToString());
-                writer.WriteElementString("B", numB.ToString());
-                writer.WriteElementString("C", numC.ToString());
-                writer.WriteElementString("D", numD.ToString());
-                writer.WriteEndElement();
+                foreach (var answerCount in answerCounts)
+                {
+                    writer.WriteElementString(answerCount.Key, answerCount.Value.ToString());
+                    Console.WriteLine($"for each answerCount in answerCounts: this {answerCount.Key} has been chosen {answerCount.Value}"); //test
+                }
+                writer.WriteEndElement(); // Results
 
-                writer.WriteEndElement();
+                writer.WriteEndElement(); // Answers
             }
         }
     }
