@@ -7,6 +7,15 @@ namespace exam.logic
     {
         private List<string> answers = new List<string>();
 
+        private readonly IXmlFileReader _xmlFileReader;
+
+        public QuizLogic() { }
+
+        public QuizLogic(IXmlFileReader xmlFileReader)
+        {
+            _xmlFileReader = xmlFileReader;
+        }
+
         public List<QuestionTemplate> GetQuiz()
         {
             // Create a new instance of the FileReader class
@@ -39,6 +48,14 @@ namespace exam.logic
 
                 var xmlFileWriter = new XmlFileWriter();
                 xmlFileWriter.WriteAnswersToXml("answers.xml", answers); //"../../data/quiz/answers.xml"
+
+                var xmlFileReader = new XmlFileReader();
+                var filePath = "/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/answers.xml";
+                var answerCounts = xmlFileReader.ReadAnswersFromXml(filePath);
+                var result = GetResults(answerCounts);
+
+                Console.WriteLine("");
+                Console.WriteLine(result);
             }
             else
             {
@@ -74,42 +91,39 @@ namespace exam.logic
             }
         }
 
-        public void GetResults() //Kommer ikke til å funke
+        public string GetResults(Dictionary<string, int> answerCounts) //Kommer ikke til å funke
         {
-            var xmlFileReader = new XmlFileReader();
-            var answerCounts = xmlFileReader.ReadAnswersFromXml("../../data/quiz/answers.xml");
+            //var xmlFileReader = new XmlFileReader();
+            //var answerCounts = xmlFileReader.ReadAnswersFromXml("../../data/quiz/answers.xml"); // feil path :( "/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/answers.xml"
+            //DENNE   ->      var answerCounts = xmlFileReader.ReadAnswersFromXml("/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/answers.xml");
+            //answerCounts = xmlFileReader.ReadAnswersFromXml(filePath);
 
-            // Determine the user's preferred cocktail based on their answers
-            var maxCount = 0;
-            var preferredCocktail = "";
 
-            foreach (var answerCount in answerCounts)
+            int aCount = answerCounts["a"];
+            int bCount = answerCounts["b"];
+            int cCount = answerCounts["c"];
+            int dCount = answerCounts["d"];
+
+            if (aCount > bCount && aCount > cCount && aCount > dCount)
             {
-                if (answerCount.Value > maxCount)
-                {
-                    maxCount = answerCount.Value;
-
-                    switch (answerCount.Key)
-                    {
-                        case "a":
-                            preferredCocktail = "Spicy Margarita";
-                            break;
-                        case "b":
-                            preferredCocktail = "Classic Gin and Tonic";
-                            break;
-                        case "c":
-                            preferredCocktail = "Mojito";
-                            break;
-                        case "d":
-                            preferredCocktail = "Old Fashioned";
-                            break;
-                    }
-                }
+                return "Based on your answers you should make a spicy Margarita!";
             }
-
-            // Print the results
-            Console.WriteLine("Results:");
-            Console.WriteLine($"If you mostly answered A's, you're a {preferredCocktail}!");
+            else if (bCount > aCount && bCount > cCount && bCount > dCount)
+            {
+                return "Based on your answers you should make a classic Gin and Tonic!";
+            }
+            else if (cCount > aCount && cCount > bCount && cCount > dCount)
+            {
+                return "Based on your answers you should make a Mojito!";
+            }
+            else if (dCount > aCount && dCount > bCount && dCount > cCount)
+            {
+                return "Based on your answers you should make an Old Fashioned!";
+            }
+            else
+            {
+                return "Based on your answers you should make a Whiskey Sour!";
+            }
         }
 
     }

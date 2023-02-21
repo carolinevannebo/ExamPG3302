@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace exam.data.quiz
 {
-    public class XmlFileReader
+    public class XmlFileReader : IXmlFileReader
     {
         public Dictionary<string, int> ReadAnswersFromXml(string filePath)
         {

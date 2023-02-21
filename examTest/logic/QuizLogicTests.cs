@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Moq;
 using exam.logic;
 using exam.data.quiz;
 
@@ -55,8 +56,34 @@ public class QuizLogicTests
     [Test]
     public void GetResults_ReturnsCorrectOutput()
     {
-        var answerCounts = new Dictionary<string, int>();
+        // Arrange
+        /*var mockXmlFileReader = new Mock<IXmlFileReader>();
+        mockXmlFileReader.Setup(x => x.ReadAnswersFromXml(
+            It.IsAny<string>()))
+            .Returns(new Dictionary<string, int>
+            {
+                {"a", 0},
+                {"b", 1},
+                {"c", 1},
+                {"d", 3}
+            });
+
+        var quizLogic = new QuizLogic(mockXmlFileReader.Object);*/
+        var quizLogic = new QuizLogic();
+
+
+        // Act
+        //var result = quizLogic.GetResults("/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/answers.xml");
+        var result = quizLogic.GetResults(new Dictionary<string, int>
+            {
+                {"a", 0},
+                {"b", 1},
+                {"c", 1},
+                {"d", 3}
+            });
+
+
+        // Assert
+        Assert.That(result, Is.EqualTo("Based on your answers you should make an Old Fashioned!"));
     }
-
 }
-
