@@ -5,16 +5,16 @@ namespace exam.logic
 {
     public class QuizLogic
     {
-        private List<string> answers = new List<string>();
+        private List<string> _answers = new List<string>();
 
-        private readonly IXmlFileReader _xmlFileReader;
+        //private readonly IXmlFileReader _xmlFileReader;
 
         public QuizLogic() { }
 
-        public QuizLogic(IXmlFileReader xmlFileReader)
+        /*public QuizLogic(IXmlFileReader xmlFileReader)
         {
             _xmlFileReader = xmlFileReader;
-        }
+        }*/
 
         public List<QuestionTemplate> GetQuiz()
         {
@@ -40,20 +40,20 @@ namespace exam.logic
                 {
                     Console.WriteLine(question.ToString());
 
+                    // Register the answers
                     var answer = Console.ReadKey();
                     var answerString = RegisterAnswer(question, answer);
 
-                    answers.Add(answerString);
+                    // Save answers to List
+                    _answers.Add(answerString);
                 }
 
+                // Send list to XML file
                 var xmlFileWriter = new XmlFileWriter();
-                xmlFileWriter.WriteAnswersToXml("answers.xml", answers); //"../../data/quiz/answers.xml"
+                xmlFileWriter.WriteAnswersToXml("answers.xml", _answers);
 
-                //var xmlFileReader = new XmlFileReader();
-                //var answerCounts = xmlFileReader.ReadAnswersFromXml("answers.xml");
-
-                //Console.WriteLine($"A: {answerCounts["a"]}\nB: {answerCounts["b"]}\nC: {answerCounts["c"]}\nD: {answerCounts["d"]}\n"); //OKEI JA DET ER REGISTRERT SÅ XML FUNKER
-                var result = GetResults(/*answerCounts*/); //BUG: den tar forrige resultat
+                // Calculate the results
+                var result = GetResults();
 
                 Console.WriteLine("");
                 Console.WriteLine(result);
@@ -61,6 +61,10 @@ namespace exam.logic
             else
             {
                 Console.WriteLine("Could not retrieve questions");
+
+                // Fallback to main menu so program does not crash
+                EventHandler eventHandler = new EventHandler();
+                eventHandler.InitialMenu();
             }
         }
 
@@ -87,28 +91,27 @@ namespace exam.logic
                 default:
                     Console.WriteLine("");
                     Console.WriteLine("Your choice was not recognized: " + answer);
+
+                    // Fallback so user can try again and program does not crash
                     var newAnswer = Console.ReadKey();
+
                     return RegisterAnswer(question, newAnswer);
             }
         }
 
-        public string GetResults(/*Dictionary<string, int> answerCounts*/)
+        public string GetResults()
         {
-            //var xmlFileReader = new XmlFileReader();
-            //var answerCounts = xmlFileReader.ReadAnswersFromXml("../../data/quiz/answers.xml"); // feil path :( "/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/answers.xml"
-            //DENNE   ->      var answerCounts = xmlFileReader.ReadAnswersFromXml("/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/answers.xml");
-            //answerCounts = xmlFileReader.ReadAnswersFromXml(filePath);
-
+            // New instance of file reader to retrieve the results
             var xmlFileReader = new XmlFileReader();
             var answerCounts = xmlFileReader.ReadAnswersFromXml("answers.xml");
 
+            // Define each score
             int aCount = answerCounts["a"];
             int bCount = answerCounts["b"];
             int cCount = answerCounts["c"];
             int dCount = answerCounts["d"];
 
-            Console.WriteLine($"A: {answerCounts["a"]}\nB: {answerCounts["b"]}\nC: {answerCounts["c"]}\nD: {answerCounts["d"]}\n");
-
+            // Return result based on scores -- Would this do better as switch case?
             if (aCount > bCount && aCount > cCount && aCount > dCount)
             {
                 return "Based on your answers you should make a spicy Margarita!";
@@ -125,7 +128,7 @@ namespace exam.logic
             {
                 return "Based on your answers you should make an Old Fashioned!";
             }
-            else
+            else // Default in case there is a 2-2-1 score. My favorite cocktail:)
             {
                 return "Based on your answers you should make a Whiskey Sour!";
             }

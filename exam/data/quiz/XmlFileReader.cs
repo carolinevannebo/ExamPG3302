@@ -15,12 +15,17 @@ namespace exam.data.quiz
                 { "d", 0 }
             };
 
+            // New instance of xmlDocument, and defining the path
             var xmlDocument = new XmlDocument();
             var xmlFilePath = Path.Combine(Directory.GetCurrentDirectory(), $"{file}");
+
+            // Loading document from specified stream
             xmlDocument.Load(xmlFilePath);
 
+            // Selecting the desired list of nodes matching the Xpath expression
             var answerNodes = xmlDocument.SelectNodes("/Answers/Answer");
 
+            // Checks how many of each letter there are
             foreach (XmlNode answerNode in answerNodes)
             {
                 var answer = answerNode.InnerText.ToLower();
@@ -30,6 +35,7 @@ namespace exam.data.quiz
                 }
             }
 
+            //Returns a Dictionary of the answers
             return answerCounts;
         }
     }

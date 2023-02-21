@@ -23,7 +23,10 @@ public class MainRepositoryTests
 
         // Assert
         Assert.That(result, Is.Not.Null);
-        Assert.That(result.idDrink, Is.Not.Null);
+
+        if (result != null)
+            Assert.That(string.IsNullOrEmpty(result.idDrink), Is.False);
+        
     }
 
     [Test]
@@ -37,7 +40,9 @@ public class MainRepositoryTests
 
         //Assert
         Assert.That(result, Is.Not.Null);
-        Assert.That(result.idDrink, Is.Not.Null);
+
+        if (result != null)
+            Assert.That(string.IsNullOrEmpty(result.idDrink), Is.False);
     }
 
     [Test]
@@ -51,10 +56,9 @@ public class MainRepositoryTests
 
         // Assert
         Assert.That(result, Is.Not.Null);
+
         if (result != null)
-        {
             Assert.That(string.IsNullOrEmpty(result.idDrink), Is.False);
-        }
     }
 
     [Test]
@@ -68,10 +72,9 @@ public class MainRepositoryTests
 
         // Assert
         Assert.That(result, Is.Not.Null);
+
         if (result != null)
-        {
             Assert.That(string.IsNullOrEmpty(result.idIngredient), Is.False);
-        }
     }
 
 }

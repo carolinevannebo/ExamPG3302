@@ -7,15 +7,23 @@ namespace examTest.data.quiz
     [TestFixture]
     public class TxtFileReaderTests
     {
+        private TxtFileReader _txtFileReader;
+        private string _filePath;
+
+        [SetUp]
+        public void Setup()
+        {
+            _filePath = Path.Combine(Directory.GetCurrentDirectory(), "quiz.txt");
+            _txtFileReader = new TxtFileReader(_filePath);
+        }
+
         [Test]
         public void ReadQuizFile_ReturnsListOfQuestionTemplate()
         {
-            // du må finne path, sensor bruker ikke din absolute path
-            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "quiz.txt");
-            var filePath = "/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/quiz.txt";
-            TxtFileReader fileReader = new TxtFileReader(filePath);
+            // Act
+            var collection = _txtFileReader.ReadQuizFile();
 
-            var collection = fileReader.ReadQuizFile();
+            // Assert
             Assert.That(collection, Is.Not.Null);
             Assert.That(collection, Is.Not.Empty);
             Assert.That(collection.Count, Is.EqualTo(5));
