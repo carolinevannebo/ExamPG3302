@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+
 namespace exam.logic
 {
     public class CocktailRecipe
@@ -23,7 +23,7 @@ namespace exam.logic
             var ingredients = string.Join("\n", strIngredients.Select((s, i) => $" {i + 1}. {s}"));
             var steps = string.Join("\n", strMeasurements.Select((s, i) => $" {i + 1}. {s}"));
 
-            return $"Name: {strDrink}\nCategory: {strAlcoholic}\nAlcoholic: {strAlcoholic}\nGlass: {strGlass}\n\nIngredients:\n{ingredients}\n\nMeasurements:\n{steps}\n\nInstructions:\n{strInstructions}";
+            return $"\nName: {strDrink}\nCategory: {strAlcoholic}\nAlcoholic: {strAlcoholic}\nGlass: {strGlass}\n\nIngredients:\n{ingredients}\n\nMeasurements:\n{steps}\n\nInstructions:\n{strInstructions}\n";
         }
         #endregion
     }

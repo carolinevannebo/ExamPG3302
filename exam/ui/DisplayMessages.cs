@@ -17,9 +17,7 @@ namespace exam.ui
             Console.WriteLine("My name is Quinton, your personal bartender assistant.");
             Console.WriteLine("I'm here to help you find your desired cocktail recipes.");
             Console.WriteLine("Would you be so kind to introduce yourself?");
-            Console.WriteLine("");
-            Console.WriteLine("What is your name?");
-            Console.WriteLine("");
+            Console.WriteLine("\nWhat is your name?\n");
 
             userName = Console.ReadLine();
 
@@ -27,6 +25,10 @@ namespace exam.ui
             var userData = new UserData();
             if (userName != null)
             {
+                // Ensuring the username is never empty
+                if (userName == "" || userName == null || userName == "\n" || userName == "\t")
+                    userName = "mystery user";
+                
                 var userDataModel = new UserDataModel(userName);
                 userData.Save(userDataModel);
                 Console.Clear();
@@ -37,8 +39,7 @@ namespace exam.ui
         public void PrintSecondWelcome()
         {
             Console.WriteLine($"Nice to meet you {userName}!");
-            Console.WriteLine("Are you ready to make some cocktails?");
-            Console.WriteLine("");
+            Console.WriteLine("Are you ready to make some cocktails?\n");
 
             var input = Console.ReadLine();
             var answer = input!.ToLower();
@@ -58,50 +59,41 @@ namespace exam.ui
             };
 
             Console.WriteLine(responses.GetValueOrDefault(answer, "I interpret that as a yes! Let's start."));
-            Thread.Sleep(2000); // tiny delay
+            Thread.Sleep(1800); // tiny delay
             Console.Clear();
         }
 
         public void PrintInitialMenu()
         {
             //hent brukernavn
-            var userData = new UserData();
-            var jsonUserName = userData.Load();
-            userName = jsonUserName.UserName;
+            var userData = new UserData(); // burde refaktorere
+            userName = userData.Load().UserName;
 
-            Console.WriteLine($"How may I be of service today, {userName}?");
-            Console.WriteLine("");
+            Console.WriteLine($"\nHow may I be of service today, {userName}?\n");
             Console.WriteLine("1: Random cocktail recipe");
             Console.WriteLine("2: Search for cocktail recipe");
             Console.WriteLine("3: Research ingredients");
             Console.WriteLine("4: Browse your saved recipes");
             Console.WriteLine("5: Find cocktail based on your current mood");
-            Console.WriteLine("6: Quit program");
-            Console.WriteLine("");
+            Console.WriteLine("6: Quit program\n");
         }
 
         public void PrintSecondMenu()
         {
             //hent brukernavn
             var userData = new UserData();
-            var jsonUserName = userData.Load();
-            userName = jsonUserName.UserName;
+            userName = userData.Load().UserName;
 
-            Console.WriteLine("");
-            Console.WriteLine($"Is there anything else I can do for you, {userName}?");
-            Console.WriteLine("");
+            Console.WriteLine($"\nIs there anything else I can do for you, {userName}?\n");
             Console.WriteLine("1: Save this recipe");
             Console.WriteLine("2: Go back to main menu");
-            Console.WriteLine("3: Quit program");
-            Console.WriteLine("");
+            Console.WriteLine("3: Quit program\n");
         }
 
         public void PrintSearchMenu()
         {
-            Console.WriteLine("");
-            Console.WriteLine("1: Search by name");
-            Console.WriteLine("2: Search by first letter");
-            Console.WriteLine("");
+            Console.WriteLine("\n1: Search by name");
+            Console.WriteLine("2: Search by first letter\n");
         }
     }
 }

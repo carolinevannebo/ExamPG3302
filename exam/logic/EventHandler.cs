@@ -13,7 +13,6 @@ namespace exam.logic
         readonly MainRepository mainRepository = new();
         readonly DisplayMessages displayMessages = new();
 
-
         #endregion
 
         #region Methods
@@ -26,8 +25,7 @@ namespace exam.logic
                 {
                     //hent brukernavn
                     var userData = new UserData();
-                    var jsonUserName = userData.Load();
-                    var userName = jsonUserName.UserName;
+                    var userName = userData.Load().UserName;
 
                     displayMessages.PrintSecondMenu();
                     var choice = Console.ReadKey();
@@ -41,8 +39,7 @@ namespace exam.logic
                             {
                                 // Insert the cocktail into the database
                                 DatabaseHelper.InsertCocktail(cocktail);
-                                Console.WriteLine("Success!");
-                                Console.WriteLine("");
+                                Console.WriteLine("Success!\n");
                                 InitialMenu();
                             }
                             catch (Exception e)
@@ -55,13 +52,11 @@ namespace exam.logic
                             InitialMenu();
                             return;
                         case ConsoleKey.D3:
-                            Console.WriteLine("");
-                            Console.WriteLine($"Goodbye {userName}");
+                            Console.WriteLine($"\nGoodbye {userName}");
                             isRunning = false;
                             return;
                         default:
-                            Console.WriteLine("");
-                            Console.WriteLine("Your choice was not recognized: " + choice);
+                            Console.WriteLine("\nYour choice was not recognized: " + choice);
                             SecondMenu(cocktail);
                             return;
                     }
@@ -74,7 +69,7 @@ namespace exam.logic
             }
         }
 
-        public void TriggerChoice1FromInitialMenu() // todo bedre navn
+        public void GetRandomCocktailRecipe()
         {
             var randomRecipe = mainRepository.GetRandomCocktailRecipe().Result;
             Console.WriteLine("");
@@ -82,148 +77,82 @@ namespace exam.logic
             SecondMenu(randomRecipe);
         }
 
-        public void TriggerChoice2FromInitialMenu() // todo bedre navn
+        public void BrowseSavedRecipes()
         {
-            //hent brukernavn -- dette kan refaktoreres til en metode som returnerer string
             var userData = new UserData();
-            var jsonUserName = userData.Load();
-            var userName = jsonUserName.UserName;
+            var userName = userData.Load().UserName;
 
-            displayMessages.PrintSearchMenu();
-            var choice = Console.ReadKey();
-
-            switch (choice.Key)
+            List<CocktailRecipe> allCocktails = DatabaseHelper.GetAllCocktails();
+            if (allCocktails != null)
             {
-                case ConsoleKey.D1:
-                    Console.WriteLine("");
-                    Console.WriteLine("Please type the recipe name you're looking for");
-                    Console.WriteLine("");
-
-                    var inputName = Console.ReadLine();
-                    var recipeName = mainRepository.GetCocktailRecipeByName(inputName).Result; //må ha exception handling
-
-                    Console.WriteLine("");
-                    Console.WriteLine(recipeName.ToString());
-                    SecondMenu(recipeName);
-                    break;
-
-                case ConsoleKey.D2:
-                    Console.WriteLine("");
-                    Console.WriteLine($"I require a letter. Would you be so kind to give me one, {userName}?");
-                    Console.WriteLine("");
-
-                    var inputLetter = Console.ReadKey();
-                    var recipeLetter = mainRepository.GetCocktailRecipeByFirstLetter(inputLetter.KeyChar.ToString()).Result; //må ha exception handling
-
-                    Console.WriteLine("");
-                    Console.WriteLine(recipeLetter.ToString());
-                    SecondMenu(recipeLetter);
-                    break;
-
-                default:
-                    Console.WriteLine("");
-                    Console.WriteLine("Your choice was not recognized: " + choice);
-                    TriggerChoice2FromInitialMenu();
-                    break;
+                foreach (var cocktail in allCocktails)
+                {
+                    Console.WriteLine(cocktail.strDrink);
+                    // todo gi valg å gå inn i oppskrift
+                }
             }
-        }
-
-        public void TriggerChoice3FromInitialMenu()
-        {
-            Console.WriteLine("");
-            Console.WriteLine("Please let me know which ingredient you'd like to know about");
-            Console.WriteLine("");
-
-            var input = Console.ReadLine();
-            var ingredient = mainRepository.GetIngredient(input!.ToString()).Result;
-
-            Console.WriteLine("");
-            Console.WriteLine(ingredient.ToString());
-            //SecondMenu(); // non-user friendly, shouldnt save an ingredient as recipe
+            else if (allCocktails == null)
+            {
+                Console.WriteLine($"You have not saved any cocktail recipes yet, {userName}.\n");
+            }
+            InitialMenu();
         }
 
         public void InitialMenu()
         {
-            bool isRunning = true; // refactor
+            bool isRunning = true;
             while (isRunning)
             {
                 try
                 {
                     //hent brukernavn
                     var userData = new UserData();
-                    var jsonUserName = userData.Load();
-                    var userName = jsonUserName.UserName;
+                    var userName = userData.Load().UserName;
 
                     displayMessages.PrintInitialMenu();
                     var choice = Console.ReadKey();
 
+                    var searchLogic = new SearchLogic();
+
                     switch (choice.Key)
                     {
                         case ConsoleKey.D1:
-                            Console.WriteLine("");
-                            Console.WriteLine("==== Random Cocktail Recipe ====");
-                            TriggerChoice1FromInitialMenu();
+                            Console.WriteLine("\n==== Random Cocktail Recipe ====\n");
+                            GetRandomCocktailRecipe();
                             return;
                         case ConsoleKey.D2:
-                            Console.WriteLine("");
-                            Console.WriteLine("==== Search Cocktail Recipe ====");
-                            TriggerChoice2FromInitialMenu();
+                            Console.WriteLine("\n==== Search Cocktail Recipe ====\n");
+                            searchLogic.SearchCocktailRecipesFromApi();
                             return;
                         case ConsoleKey.D3:
-                            Console.WriteLine("");
-                            Console.WriteLine("==== Research Ingredient ====");
-                            TriggerChoice3FromInitialMenu();
+                            Console.WriteLine("\n==== Research Ingredient ====\n");
+                            searchLogic.SearchIngredientsFromApi();
                             return;
                         case ConsoleKey.D4:
-                            Console.WriteLine("");
-                            Console.WriteLine("==== Browse Saved Recipes ====");
-                            Console.WriteLine("");
-                            Console.WriteLine("Under construction...");
-                            //todo brukeren bør kunne se en kort oversikt, velge oppskriften de vil se og kunne slette den
-                            // Retrieve the cocktail from the database by its ID
-                            //    CocktailRecipe retrievedCocktail = DatabaseHelper.GetCocktailById("12345");
-                            // Retrieve all cocktails from the database
-                            List<CocktailRecipe> allCocktails = DatabaseHelper.GetAllCocktails();
-                            if (allCocktails != null)
-                            {
-                                Console.WriteLine(allCocktails[0].ToString());
-                            }
-                            else if (allCocktails == null)
-                            {
-                                Console.WriteLine($"You have not saved any cocktail recipes yet, {userName}.");
-                                Console.WriteLine("");
-                            }
-                            InitialMenu(); //todo midlertidig løsning
-                            //todo en annen meny så caset ikke rekker return aka quit
-                            
+                            Console.WriteLine("\n==== Browse Saved Recipes ====\n");
+                            BrowseSavedRecipes();
                             return;
                         case ConsoleKey.D5:
-                            Console.WriteLine("");
-                            Console.WriteLine("==== Which Cocktail Should You Prepare Quiz ====");
-                            Console.WriteLine("");
-                            Console.WriteLine("Under construction...");
+                            Console.WriteLine("\n==== Which Cocktail Should You Prepare Quiz ====\n");
                             QuizLogic quizLogic = new QuizLogic();
                             quizLogic.PrintAndReadQuiz();
-                            //SecondMenu(); // todo finn oppskriften fra quiz og vis den, så send den i second menu
+                            quizLogic.PresentCocktailBasedOnResult();
                             return;
                         case ConsoleKey.D6:
-                            Console.WriteLine("");
-                            Console.WriteLine("==== Quit Program ====");
-                            Console.WriteLine("");
+                            Console.WriteLine("\n==== Quit Program ====\n");
                             Console.WriteLine($"Goodbye {userName}");
                             isRunning = false;
                             return;
                         default:
                             Console.Clear();
-                            Console.WriteLine("Your choice was not recognized: " + choice);
-                            Console.WriteLine("");
+                            Console.WriteLine("\nYour choice was not recognized: " + choice + "\n");
                             InitialMenu();
                             return; // usikker på denne løsningen
                     }
                 }
-                catch (IOException e)
+                catch (Exception e)
                 {
-                    Console.WriteLine("An error occured, " + e.GetBaseException); // ?
+                    Console.WriteLine("An error occured, " + e.Message);
                 }
             }
         }

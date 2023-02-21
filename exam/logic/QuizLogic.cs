@@ -1,20 +1,17 @@
 ﻿using System;
+using System.Security.Cryptography;
+using exam.data.json;
 using exam.data.quiz;
+using exam.data.repo;
 
 namespace exam.logic
 {
     public class QuizLogic
     {
         private List<string> _answers = new List<string>();
-
-        //private readonly IXmlFileReader _xmlFileReader;
+        private UserData _userData = new UserData();
 
         public QuizLogic() { }
-
-        /*public QuizLogic(IXmlFileReader xmlFileReader)
-        {
-            _xmlFileReader = xmlFileReader;
-        }*/
 
         public List<QuestionTemplate> GetQuiz()
         {
@@ -132,6 +129,57 @@ namespace exam.logic
             {
                 return "Based on your answers you should make a Whiskey Sour!";
             }
+        }
+
+        public CocktailRecipe GetCocktailBasedOnResult()
+        {
+            var result = GetResults();
+            var repo = new MainRepository();
+            var cocktailName = "";
+
+            switch (result.ToLower())
+            {
+                case string s when s.Contains("spicy margarita"):
+                    cocktailName = "spicy margarita";
+                    break;
+                case string s when s.Contains("gin and tonic"):
+                    cocktailName = "gin and tonic";
+                    break;
+                case string s when s.Contains("mojito"):
+                    cocktailName = "mojito";
+                    break;
+                case string s when s.Contains("old fashioned"):
+                    cocktailName = "old fashioned";
+                    break;
+                default:
+                    cocktailName = "whiskey sour";
+                    break;
+            }
+
+            return repo.GetCocktailRecipeByName(cocktailName).Result;
+
+        }
+
+        public void PresentCocktailBasedOnResult()
+        {
+            var userName = _userData.Load().UserName;
+            Console.WriteLine($"Would you like to try the recipe, {userName}?\n");
+
+            EventHandler eventHandler = new EventHandler();
+
+            var answer = Console.ReadLine();
+
+            if (answer.ToLower() != "no")
+            {
+                var cocktail = GetCocktailBasedOnResult();
+                Console.WriteLine(cocktail.ToString());
+                eventHandler.SecondMenu(cocktail);
+            }
+            else
+            {
+                eventHandler.InitialMenu();
+            }
+
         }
 
     }
