@@ -5,7 +5,7 @@ namespace exam.data.quiz
 {
     public class XmlFileReader : IXmlFileReader
     {
-        public Dictionary<string, int> ReadAnswersFromXml(string filePath)
+        public Dictionary<string, int> ReadAnswersFromXml(string file)
         {
             var answerCounts = new Dictionary<string, int>
             {
@@ -16,7 +16,8 @@ namespace exam.data.quiz
             };
 
             var xmlDocument = new XmlDocument();
-            xmlDocument.Load(filePath);
+            var xmlFilePath = Path.Combine(Directory.GetCurrentDirectory(), $"{file}");
+            xmlDocument.Load(xmlFilePath);
 
             var answerNodes = xmlDocument.SelectNodes("/Answers/Answer");
 

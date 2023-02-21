@@ -37,7 +37,7 @@ namespace exam.data.quiz
                 foreach (var answerCount in answerCounts)
                 {
                     writer.WriteElementString(answerCount.Key, answerCount.Value.ToString());
-                    Console.WriteLine($"for each answerCount in answerCounts: this {answerCount.Key} has been chosen {answerCount.Value}"); //test
+                    Console.WriteLine($"for each answerCount in answerCounts: this {answerCount.Key} has been chosen {answerCount.Value} times"); //test
                 }
                 writer.WriteEndElement(); // Results
 

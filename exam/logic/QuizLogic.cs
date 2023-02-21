@@ -49,17 +49,18 @@ namespace exam.logic
                 var xmlFileWriter = new XmlFileWriter();
                 xmlFileWriter.WriteAnswersToXml("answers.xml", answers); //"../../data/quiz/answers.xml"
 
-                var xmlFileReader = new XmlFileReader();
-                var filePath = "/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/answers.xml";
-                var answerCounts = xmlFileReader.ReadAnswersFromXml(filePath);
-                var result = GetResults(answerCounts);
+                //var xmlFileReader = new XmlFileReader();
+                //var answerCounts = xmlFileReader.ReadAnswersFromXml("answers.xml");
+
+                //Console.WriteLine($"A: {answerCounts["a"]}\nB: {answerCounts["b"]}\nC: {answerCounts["c"]}\nD: {answerCounts["d"]}\n"); //OKEI JA DET ER REGISTRERT SÅ XML FUNKER
+                var result = GetResults(/*answerCounts*/); //BUG: den tar forrige resultat
 
                 Console.WriteLine("");
                 Console.WriteLine(result);
             }
             else
             {
-                Console.WriteLine("List of questions is null");
+                Console.WriteLine("Could not retrieve questions");
             }
         }
 
@@ -91,18 +92,22 @@ namespace exam.logic
             }
         }
 
-        public string GetResults(Dictionary<string, int> answerCounts) //Kommer ikke til å funke
+        public string GetResults(/*Dictionary<string, int> answerCounts*/)
         {
             //var xmlFileReader = new XmlFileReader();
             //var answerCounts = xmlFileReader.ReadAnswersFromXml("../../data/quiz/answers.xml"); // feil path :( "/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/answers.xml"
             //DENNE   ->      var answerCounts = xmlFileReader.ReadAnswersFromXml("/Users/carolinevannebo/Desktop/IT/3-semester/SoftwareDesign/kont/exam/examTest/data/quiz/answers.xml");
             //answerCounts = xmlFileReader.ReadAnswersFromXml(filePath);
 
+            var xmlFileReader = new XmlFileReader();
+            var answerCounts = xmlFileReader.ReadAnswersFromXml("answers.xml");
 
             int aCount = answerCounts["a"];
             int bCount = answerCounts["b"];
             int cCount = answerCounts["c"];
             int dCount = answerCounts["d"];
+
+            Console.WriteLine($"A: {answerCounts["a"]}\nB: {answerCounts["b"]}\nC: {answerCounts["c"]}\nD: {answerCounts["d"]}\n");
 
             if (aCount > bCount && aCount > cCount && aCount > dCount)
             {
