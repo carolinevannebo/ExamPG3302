@@ -36,11 +36,13 @@
     <None Remove="logic\" />
     <None Remove="data\quiz\" />
     <None Remove="Moq" />
+    <None Remove="ui\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
     <Folder Include="data\repo\" />
     <Folder Include="logic\" />
     <Folder Include="data\quiz\" />
+    <Folder Include="ui\" />
   </ItemGroup>
 </Project>

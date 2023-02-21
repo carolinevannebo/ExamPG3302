@@ -13,12 +13,13 @@ namespace exam.logic
         readonly MainRepository mainRepository = new();
         readonly DisplayMessages displayMessages = new();
 
+
         #endregion
 
         #region Methods
 
         public void SecondMenu(CocktailRecipe cocktail) {
-            bool isRunning = true; // refactor
+            bool isRunning = true;
             while(isRunning)
             {
                 try
@@ -66,14 +67,14 @@ namespace exam.logic
                     }
 
                 }
-                catch (IOException e)
+                catch (Exception e)
                 {
-                    Console.WriteLine("An error occured, " + e.GetBaseException); // ?
+                    Console.WriteLine("An error occured, " + e.Message); // ?
                 }
             }
         }
 
-        public void TriggerChoice1FromInitialMenu()
+        public void TriggerChoice1FromInitialMenu() // todo bedre navn
         {
             var randomRecipe = mainRepository.GetRandomCocktailRecipe().Result;
             Console.WriteLine("");
@@ -81,7 +82,7 @@ namespace exam.logic
             SecondMenu(randomRecipe);
         }
 
-        public void TriggerChoice2FromInitialMenu()
+        public void TriggerChoice2FromInitialMenu() // todo bedre navn
         {
             //hent brukernavn -- dette kan refaktoreres til en metode som returnerer string
             var userData = new UserData();
@@ -203,7 +204,7 @@ namespace exam.logic
                             Console.WriteLine("Under construction...");
                             QuizLogic quizLogic = new QuizLogic();
                             quizLogic.PrintAndReadQuiz();
-                            //SecondMenu();
+                            //SecondMenu(); // todo finn oppskriften fra quiz og vis den, så send den i second menu
                             return;
                         case ConsoleKey.D6:
                             Console.WriteLine("");

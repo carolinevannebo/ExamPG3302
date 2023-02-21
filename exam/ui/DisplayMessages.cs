@@ -37,32 +37,28 @@ namespace exam.ui
         public void PrintSecondWelcome()
         {
             Console.WriteLine($"Nice to meet you {userName}!");
-            Console.WriteLine("Are you ready to make some cocktails? (y/n)");
+            Console.WriteLine("Are you ready to make some cocktails?");
             Console.WriteLine("");
-            var input = Console.ReadKey();
 
-            // Check if more than one key was pressed
-            if (input.KeyChar != '\0')
-            {
-                input = new ConsoleKeyInfo(input.KeyChar, input.Key, false, false, false);
-            }
+            var input = Console.ReadLine();
+            var answer = input!.ToLower();
 
-            if (input.Key == ConsoleKey.Y)
+            var responses = new Dictionary<string, string>
             {
-                Console.WriteLine("");
-                Console.WriteLine("Splendid! Let's start.");
-            }
-            else if (input.Key == ConsoleKey.N)
-            {
-                Console.WriteLine("");
-                Console.WriteLine("Nonsense! I insist! Let's start.");
-            }
-            else
-            {
-                Console.WriteLine("");
-                Console.WriteLine("Neither a yes or no? I interpret that as a yes! Let's start.");
-            }
-            Thread.Sleep(2500); // tiny delay
+                { "yes", "Splendid! Let's start." },
+                { "ja", "Supert! La oss komme i gang." },
+                { "si", "¡Espléndido! Empecemos." },
+                { "da", "Minunat! Să începem." },
+                { "oui", "Splendide! Commençons." },
+                { "no", "Nonsense! I insist! Let's start." },
+                { "nei", "Tullball! Jeg insisterer! La oss begynne." },
+                { "nu", "Prostii! Insist! Să începem." },
+                { "non", "Absurdité! J'insiste! Commençons." },
+                { "nein", "Unsinn! Ich bestehe darauf! Lasst uns beginnen." }
+            };
+
+            Console.WriteLine(responses.GetValueOrDefault(answer, "I interpret that as a yes! Let's start."));
+            Thread.Sleep(2000); // tiny delay
             Console.Clear();
         }
 
