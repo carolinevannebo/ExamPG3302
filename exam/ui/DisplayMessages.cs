@@ -65,8 +65,8 @@ namespace exam.ui
 
         public void PrintInitialMenu()
         {
-            //hent brukernavn
-            var userData = new UserData(); // burde refaktorere
+            //hent brukernavn todo refaktorer
+            var userData = new UserData();
             userName = userData.Load().UserName;
 
             Console.WriteLine($"\nHow may I be of service today, {userName}?\n");
@@ -74,13 +74,13 @@ namespace exam.ui
             Console.WriteLine("2: Search for cocktail recipe");
             Console.WriteLine("3: Research ingredients");
             Console.WriteLine("4: Browse your saved recipes");
-            Console.WriteLine("5: Find cocktail based on your current mood");
+            Console.WriteLine("5: Take a quiz");
             Console.WriteLine("6: Quit program\n");
         }
 
         public void PrintSecondMenu()
         {
-            //hent brukernavn
+            //hent brukernavn todo refaktorer
             var userData = new UserData();
             userName = userData.Load().UserName;
 

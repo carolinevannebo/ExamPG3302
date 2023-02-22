@@ -8,10 +8,14 @@ namespace exam.logic
 {
     public class QuizLogic
     {
-        private List<string> _answers = new List<string>();
-        private UserData _userData = new UserData();
+        private List<string> _answers; //= new List<string>();
+        private UserData _userData;
 
-        public QuizLogic() { }
+        public QuizLogic()
+        {
+            _answers = new List<string>();
+            _userData = new UserData();
+        }
 
         public List<QuestionTemplate> GetQuiz()
         {
