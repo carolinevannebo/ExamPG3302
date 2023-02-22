@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
-using exam.data.json;
+using exam.data.userData;
 using exam.data.quiz;
 using exam.data.repo;
 
@@ -115,7 +115,7 @@ namespace exam.logic
             // Return result based on scores -- Would this do better as switch case?
             if (aCount > bCount && aCount > cCount && aCount > dCount)
             {
-                return "Based on your answers you should make a spicy Margarita!";
+                return "Based on your answers you should make a Bloody Mary!";
             }
             else if (bCount > aCount && bCount > cCount && bCount > dCount)
             {
@@ -143,8 +143,8 @@ namespace exam.logic
 
             switch (result.ToLower())
             {
-                case string s when s.Contains("spicy margarita"):
-                    cocktailName = "spicy margarita";
+                case string s when s.Contains("bloody mary"):
+                    cocktailName = "bloody mary";
                     break;
                 case string s when s.Contains("gin and tonic"):
                     cocktailName = "gin and tonic";

@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace exam.data.quiz
 {
     public class QuestionTemplate

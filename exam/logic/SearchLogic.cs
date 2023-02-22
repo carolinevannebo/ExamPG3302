@@ -1,5 +1,5 @@
 ﻿using System;
-using exam.data.json;
+using exam.data.userData;
 using exam.data.repo;
 using exam.ui;
 
@@ -7,10 +7,10 @@ namespace exam.logic
 {
     public class SearchLogic
     {
-        private UserData _userData;
-        private DisplayMessages _displayMessages;
-        private MainRepository _mainRepository;
-        private EventHandler _eventHandler;
+        private readonly UserData _userData;
+        private readonly DisplayMessages _displayMessages;
+        private readonly MainRepository _mainRepository;
+        private readonly EventHandler _eventHandler;
 
         public SearchLogic()
         {

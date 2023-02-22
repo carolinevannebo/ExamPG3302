@@ -1,5 +1,6 @@
 ﻿using System;
-namespace exam.data.json
+
+namespace exam.data.userData
 {
     public class UserDataModel
     {

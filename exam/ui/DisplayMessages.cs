@@ -1,5 +1,5 @@
 ﻿using System;
-using exam.data.json;
+using exam.data.userData;
 
 namespace exam.ui
 {
@@ -59,7 +59,7 @@ namespace exam.ui
             };
 
             Console.WriteLine(responses.GetValueOrDefault(answer, "I interpret that as a yes! Let's start."));
-            Thread.Sleep(1800); // tiny delay
+            Thread.Sleep(1500); // tiny delay
             Console.Clear();
         }
 

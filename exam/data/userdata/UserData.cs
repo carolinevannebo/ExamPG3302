@@ -2,7 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace exam.data.json
+namespace exam.data.userData
 {
     public class UserData
     {
