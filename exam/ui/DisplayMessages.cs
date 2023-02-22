@@ -39,7 +39,7 @@ namespace exam.ui
         public void PrintSecondWelcome()
         {
             Console.WriteLine($"Nice to meet you {userName}!");
-            Console.WriteLine("Are you ready to make some cocktails?\n");
+            Console.WriteLine("Are you ready to make some cocktails?");
 
             var input = Console.ReadLine();
             var answer = input!.ToLower();
@@ -58,6 +58,7 @@ namespace exam.ui
                 { "nein", "Unsinn! Ich bestehe darauf! Lasst uns beginnen." }
             };
 
+            Console.WriteLine("\n");
             Console.WriteLine(responses.GetValueOrDefault(answer, "I interpret that as a yes! Let's start."));
             Thread.Sleep(1500); // tiny delay
             Console.Clear();
@@ -69,7 +70,8 @@ namespace exam.ui
             var userData = new UserData();
             userName = userData.Load().UserName;
 
-            Console.WriteLine($"\nHow may I be of service today, {userName}?\n");
+            Console.WriteLine("\n");
+            Console.WriteLine($"How may I be of service today, {userName}?\n");
             Console.WriteLine("1: Random cocktail recipe");
             Console.WriteLine("2: Search for cocktail recipe");
             Console.WriteLine("3: Research ingredients");
@@ -92,7 +94,7 @@ namespace exam.ui
 
         public void PrintSearchMenu()
         {
-            Console.WriteLine("\n1: Search by name");
+            Console.WriteLine("1: Search by name");
             Console.WriteLine("2: Search by first letter\n");
         }
     }

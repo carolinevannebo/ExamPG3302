@@ -46,19 +46,21 @@ public class MainRepositoryTests
     }
 
     [Test]
-    public async Task GetCocktailRecipeByFirstLetter_ReturnsData()
+    public async Task GetCocktailRecipesByFirstLetter_ReturnsData()
     {
         // Arrange
         string firstLetter = "w";
 
         // Act
-        var result = await _mainRepository.GetCocktailRecipeByFirstLetter(firstLetter);
+        var result = await _mainRepository.GetCocktailRecipesByFirstLetter(firstLetter);
 
         // Assert
         Assert.That(result, Is.Not.Null);
 
-        if (result != null)
-            Assert.That(string.IsNullOrEmpty(result.idDrink), Is.False);
+        foreach (var recipe in result)
+        {
+            Assert.That(string.IsNullOrEmpty(recipe.idDrink), Is.False);
+        }
     }
 
     [Test]

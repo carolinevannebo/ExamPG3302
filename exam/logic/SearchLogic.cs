@@ -27,50 +27,98 @@ namespace exam.logic
             var input = Console.ReadLine();
             var ingredient = _mainRepository.GetIngredient(input!.ToString()).Result;
 
-            Console.WriteLine("\n" + ingredient.ToString());
+            Console.WriteLine("\n");
+            Console.WriteLine(ingredient.ToString());
             _eventHandler.InitialMenu();
+        }
+
+        private void SearchByName()
+        {
+            Console.WriteLine("\nPlease type the recipe name you're looking for\n");
+
+            var inputName = Console.ReadLine();
+            var recipeByName = _mainRepository.GetCocktailRecipeByName(inputName).Result; //må ha exception handling
+
+            Console.WriteLine("\n" + recipeByName.ToString());
+            _eventHandler.SecondMenu(recipeByName);
+        }
+
+        private void SearchByLetter()
+        {
+            var userName = _userData.Load().UserName;
+
+            Console.WriteLine("\n");
+            Console.WriteLine($"I require a letter. Would you be so kind to give me one, {userName}?\n");
+
+            var inputLetter = Console.ReadKey();
+            var recipesByLetter = _mainRepository.GetCocktailRecipesByFirstLetter(inputLetter.KeyChar.ToString()).Result; //må ha exception handling
+
+            Console.WriteLine("\n");
+
+            foreach (var recipe in recipesByLetter)
+            {
+                Console.WriteLine($"{recipe.strDrink,-40} Category: {recipe.strCategory}");
+            }
+
+            Console.WriteLine("\n");
+            Console.WriteLine($"Would you like to try one of these, {userName}?");
+            Console.WriteLine("Type the cocktail name to open recipe, or 'main menu' to go back");
+
+            while (true)
+            {
+                var input = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(input))
+                {
+                    Console.WriteLine($"Sorry {userName}, I need a little more than that to work with than that");
+                    continue;
+                }
+
+                if (input.ToLower().Contains("main menu"))
+                {
+                    _eventHandler.InitialMenu();
+                    return;
+                }
+
+                var chosenCocktail = _mainRepository.GetCocktailRecipeByName(input.ToLower()).Result;
+
+                if (chosenCocktail == null)
+                {
+                    Console.WriteLine($"Sorry to disappoint {userName}, but your cocktail is no where to be found. Try again");
+                    continue;
+                }
+
+                Console.WriteLine(chosenCocktail.ToString());
+                _eventHandler.SecondMenu(chosenCocktail);
+                return;
+            }
         }
 
         public void SearchCocktailRecipesFromApi()
         {
-            var userName = _userData.Load().UserName;
-
             // Print menu
             _displayMessages.PrintSearchMenu();
 
-            // Define choice
-            var choice = Console.ReadKey();
-
-            switch (choice.Key)
+            while (true)
             {
-                case ConsoleKey.D1:
-                    Console.WriteLine("\nPlease type the recipe name you're looking for\n");
+                // Define choice
+                var choice = Console.ReadKey();
 
-                    var inputName = Console.ReadLine();
-                    var recipeByName = _mainRepository.GetCocktailRecipeByName(inputName).Result; //må ha exception handling
+                switch (choice.Key)
+                {
+                    case ConsoleKey.D1:
+                        SearchByName();
+                        break;
 
-                    Console.WriteLine("\n" + recipeByName.ToString());
+                    case ConsoleKey.D2:
+                        SearchByLetter();
+                        break;
 
-                    // Next option
-                    _eventHandler.SecondMenu(recipeByName);
-                    break;
-
-                case ConsoleKey.D2:
-                    Console.WriteLine($"\nI require a letter. Would you be so kind to give me one, {userName}?\n");
-
-                    var inputLetter = Console.ReadKey();
-                    var recipeByLetter = _mainRepository.GetCocktailRecipeByFirstLetter(inputLetter.KeyChar.ToString()).Result; //må ha exception handling
-
-                    Console.WriteLine("\n" + recipeByLetter.ToString());
-
-                    // Next option
-                    _eventHandler.SecondMenu(recipeByLetter);
-                    break;
-
-                default:
-                    Console.WriteLine("\nYour choice was not recognized: " + choice);
-                    SearchCocktailRecipesFromApi();
-                    break;
+                    default:
+                        Console.WriteLine("\n");
+                        Console.WriteLine("Your choice was not recognized: " + choice);
+                        continue;
+                }
             }
         }
     }

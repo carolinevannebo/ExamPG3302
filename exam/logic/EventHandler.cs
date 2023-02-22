@@ -73,7 +73,6 @@ namespace exam.logic
         public void GetRandomCocktailRecipe()
         {
             var randomRecipe = mainRepository.GetRandomCocktailRecipe().Result;
-            Console.WriteLine("");
             Console.WriteLine(randomRecipe.ToString());
             SecondMenu(randomRecipe);
         }
@@ -95,37 +94,38 @@ namespace exam.logic
                     displayMessages.PrintInitialMenu();
                     var choice = Console.ReadKey();
 
+                    Console.WriteLine("\n");
+
                     switch (choice.Key)
                     {
                         case ConsoleKey.D1:
-                            Console.WriteLine("\n==== Random Cocktail Recipe ====\n");
+                            Console.WriteLine("==== Random Cocktail Recipe ====\n");
                             GetRandomCocktailRecipe();
                             return;
                         case ConsoleKey.D2:
-                            Console.WriteLine("\n==== Search Cocktail Recipe ====\n");
+                            Console.WriteLine("==== Search Cocktail Recipe ====\n");
                             searchLogic.SearchCocktailRecipesFromApi();
                             return;
                         case ConsoleKey.D3:
-                            Console.WriteLine("\n==== Research Ingredient ====\n");
+                            Console.WriteLine("==== Research Ingredient ====\n");
                             searchLogic.SearchIngredientsFromApi();
                             return;
                         case ConsoleKey.D4:
-                            Console.WriteLine("\n==== Browse Your Collection ====\n");
+                            Console.WriteLine("==== Browse Your Collection ====\n");
                             collectionBrowserLogic.BrowseSavedRecipes();
                             return;
                         case ConsoleKey.D5:
-                            Console.WriteLine("\n==== Your Best Suited Cocktail Quiz ====\n");
+                            Console.WriteLine("==== Your Best Suited Cocktail Quiz ====\n");
                             quizLogic.PrintAndReadQuiz();
                             quizLogic.PresentCocktailBasedOnResult();
                             return;
                         case ConsoleKey.D6:
-                            Console.WriteLine("\n==== Quit Program ====\n");
+                            Console.WriteLine("==== Quit Program ====\n");
                             Console.WriteLine($"Goodbye {userName}");
                             isRunning = false;
                             return;
                         default:
-                            Console.Clear();
-                            Console.WriteLine("\nYour choice was not recognized: " + choice + "\n");
+                            Console.WriteLine("Your choice was not recognized: " + choice + "\n");
                             InitialMenu();
                             return;
                     }

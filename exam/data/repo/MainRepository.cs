@@ -23,18 +23,16 @@ namespace exam.data.repo
         public async Task<CocktailRecipe> GetRandomCocktailRecipe()
         {
             var data = await GetJsonFromServer(_randomCocktailEndpoint);
-            return ConvertJsonToCocktailRecipe(data);
-            //return await GetDataFromServer(_randomCocktailEndpoint);
+            return ConvertJsonToCocktailRecipe(data, 0);
         }
 
         public async Task<CocktailRecipe> GetCocktailRecipeByName(string input)
         {
             var data = await GetJsonFromServer(_searchEndpoint + _searchEndpointByName + input);
-            return ConvertJsonToCocktailRecipe(data);
-            //return await GetDataFromServer(_searchEndpoint + _searchEndpointByName + input);
+            return ConvertJsonToCocktailRecipe(data, 0);
         }
 
-        public async Task<CocktailRecipe> GetCocktailRecipeByFirstLetter(string input)
+        public async Task<List<CocktailRecipe>> GetCocktailRecipesByFirstLetter(string input)
         {
             if (!MyRegex().IsMatch(input))
             {
@@ -42,15 +40,15 @@ namespace exam.data.repo
             }
 
             var data = await GetJsonFromServer(_searchEndpoint + _searchEndpointByFirstLetter + input);
-            return ConvertJsonToCocktailRecipe(data);
-            //return await GetDataFromServer(_searchEndpoint + _searchEndpointByFirstLetter + input);
+
+            return ConvertJsonToCocktailRecipeList(data);
+            //return ConvertJsonToCocktailRecipe(data, 0);
         }
 
         public async Task<Ingredient> GetIngredient(string input)
         {
             var data = await GetJsonFromServer(_searchEndpoint + _searchEndpointByIngredient + input);
             return ConvertJsonToIngredient(data);
-            //return await GetDataFromServer(_searchEndpoint + _searchEndpointByIngredient + input);
         }
 
         private static async Task<RootObject> GetJsonFromServer(string endpoint)
@@ -74,9 +72,25 @@ namespace exam.data.repo
             return json!;
         }
 
-        private static CocktailRecipe ConvertJsonToCocktailRecipe(RootObject json)
+        private static List<CocktailRecipe> ConvertJsonToCocktailRecipeList(RootObject json)
         {
-            var jsonDrink = json.drinks[0];
+            var list = json.drinks;
+            var convertedList = new List<CocktailRecipe>();
+            int index = 0;
+
+            foreach (var cocktail in list)
+            {
+                var currentCocktailRecipe = ConvertJsonToCocktailRecipe(json, index);
+                convertedList.Add(currentCocktailRecipe);
+                index++;
+            }
+
+            return convertedList;
+        }
+
+        private static CocktailRecipe ConvertJsonToCocktailRecipe(RootObject json, int index)
+        {
+            var jsonDrink = json.drinks[index];
 
             // create a new CocktailRecipe object
             var recipe = new CocktailRecipe
