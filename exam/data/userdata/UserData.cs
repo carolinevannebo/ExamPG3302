@@ -8,7 +8,7 @@ namespace exam.data.userData
     {
         private const string UserDataFileName = "userdata.json";
 
-        public UserDataModel Load()
+        public static UserDataModel Load()
         {
             if (!File.Exists(UserDataFileName))
             {
@@ -26,7 +26,7 @@ namespace exam.data.userData
             }
         }
 
-        public void Save(UserDataModel userName)
+        public static void Save(UserDataModel userName)
         {
             try
             {

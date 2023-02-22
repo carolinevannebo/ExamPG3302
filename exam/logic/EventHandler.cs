@@ -11,7 +11,7 @@ namespace exam.logic
     {
         #region Properties
 
-        readonly MainRepository mainRepository = new();
+        //readonly MainRepository mainRepository = new();
         readonly DisplayMessages displayMessages = new();
 
         #endregion
@@ -26,7 +26,7 @@ namespace exam.logic
                 {
                     //hent brukernavn
                     var userData = new UserData();
-                    var userName = userData.Load().UserName;
+                    var userName = UserData.Load().UserName;
 
                     displayMessages.PrintSecondMenu();
                     var choice = Console.ReadKey();
@@ -86,10 +86,10 @@ namespace exam.logic
                 {
                     var searchLogic = new SearchLogic(); // finn ut hva som er forskjellen på måtene man lager ny instanse av en klasse
                     var quizLogic = new QuizLogic();
-                    var userData = new UserData();
+                    //var userData = new UserData();
                     var collectionBrowserLogic = new CollectionBrowserLogic();
 
-                    var userName = userData.Load().UserName;
+                    var userName = UserData.Load().UserName;
 
                     displayMessages.PrintInitialMenu();
                     var choice = Console.ReadKey();

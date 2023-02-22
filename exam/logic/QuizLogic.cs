@@ -9,12 +9,12 @@ namespace exam.logic
     public class QuizLogic
     {
         private readonly List<string> _answers;
-        private readonly UserData _userData;
+        //private readonly UserData _userData;
 
         public QuizLogic()
         {
             _answers = new List<string>();
-            _userData = new UserData();
+            //_userData = new UserData();
         }
 
         public static List<QuestionTemplate> GetQuiz()
@@ -138,7 +138,7 @@ namespace exam.logic
         public static CocktailRecipe GetCocktailBasedOnResult()
         {
             var result = GetResults();
-            var repo = new MainRepository();
+            //var repo = new MainRepository();
 
             var cocktailName = result.ToLower() switch
             {
@@ -155,7 +155,7 @@ namespace exam.logic
 
         public void PresentCocktailBasedOnResult()
         {
-            var userName = _userData.Load().UserName;
+            var userName = UserData.Load().UserName;
             Console.WriteLine($"Would you like to try the recipe, {userName}?\n");
 
             EventHandler eventHandler = new();

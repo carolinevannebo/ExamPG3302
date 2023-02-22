@@ -34,7 +34,7 @@ namespace exam.ui
                     userName = "mystery user";
                 
                 var userDataModel = new UserDataModel(userName);
-                userData.Save(userDataModel);
+                UserData.Save(userDataModel);
                 Console.Clear();
                 PrintSecondWelcome();
             }
@@ -70,7 +70,7 @@ namespace exam.ui
 
         public void PrintInitialMenu()
         {
-            userName = userData.Load().UserName;
+            userName = UserData.Load().UserName;
 
             Console.WriteLine("\n");
             Console.WriteLine($"How may I be of service today, {userName}?\n");
@@ -84,7 +84,7 @@ namespace exam.ui
 
         public void PrintSecondMenu()
         {
-            userName = userData.Load().UserName;
+            userName = UserData.Load().UserName;
 
             Console.WriteLine($"\nIs there anything else I can do for you, {userName}?\n");
             Console.WriteLine("1: Save this recipe");

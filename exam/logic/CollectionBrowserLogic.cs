@@ -6,12 +6,12 @@ namespace exam.logic
 {
     public class CollectionBrowserLogic
     {
-        private readonly UserData _userData;
+        //private readonly UserData _userData;
         private readonly EventHandler _eventHandler;
 
         public CollectionBrowserLogic()
         {
-            _userData = new UserData();
+            //_userData = new UserData();
             _eventHandler = new EventHandler();
         }
 
@@ -19,7 +19,7 @@ namespace exam.logic
         public void BrowseSavedRecipes()
         {
             // Load username
-            var userName = _userData.Load().UserName;
+            var userName = UserData.Load().UserName;
 
             // Fetch all cocktails in DB
             List<CocktailRecipe> allCocktails = DatabaseHelper.GetAllCocktails();

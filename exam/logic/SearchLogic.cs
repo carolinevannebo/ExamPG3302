@@ -7,14 +7,14 @@ namespace exam.logic
 {
     public class SearchLogic
     {
-        private readonly UserData _userData;
+        //private readonly UserData _userData;
         private readonly DisplayMessages _displayMessages;
         private readonly MainRepository _mainRepository;
         private readonly EventHandler _eventHandler;
 
         public SearchLogic()
         {
-            _userData = new UserData();
+            //_userData = new UserData();
             _displayMessages = new DisplayMessages();
             _mainRepository = new MainRepository();
             _eventHandler = new EventHandler();
@@ -37,15 +37,34 @@ namespace exam.logic
             Console.WriteLine("\nPlease type the recipe name you're looking for\n");
 
             var inputName = Console.ReadLine();
-            var recipeByName = MainRepository.GetCocktailRecipeByName(inputName).Result; //må ha exception handling
 
-            Console.WriteLine("\n" + recipeByName.ToString());
-            _eventHandler.SecondMenu(recipeByName);
+            try
+            {
+                var recipeByName = MainRepository.GetCocktailRecipeByName(inputName!.ToString()).Result;
+
+                if (recipeByName != null)
+                {
+                    Console.WriteLine("\n" + recipeByName.ToString());
+                    _eventHandler.SecondMenu(recipeByName);
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("I can't seem to find the recipe you are looking for, my apologies");
+                    SearchCocktailRecipesFromApi();
+                }
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong: " + e.Message);
+                SearchCocktailRecipesFromApi();
+            }
         }
 
         private void SearchByLetter()
         {
-            var userName = _userData.Load().UserName;
+            var userName = UserData.Load().UserName;
 
             Console.WriteLine("\n");
             Console.WriteLine($"I require a letter. Would you be so kind to give me one, {userName}?\n");
