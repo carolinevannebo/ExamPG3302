@@ -149,7 +149,7 @@ namespace exam.logic
                 _ => "whiskey sour",
             };
 
-            return repo.GetCocktailRecipeByName(cocktailName).Result;
+            return MainRepository.GetCocktailRecipeByName(cocktailName).Result;
 
         }
 

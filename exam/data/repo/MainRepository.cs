@@ -20,19 +20,19 @@ namespace exam.data.repo
         }
 
         #region Methods
-        public async Task<CocktailRecipe> GetRandomCocktailRecipe()
+        public static async Task<CocktailRecipe> GetRandomCocktailRecipe()
         {
             var data = await GetJsonFromServer(_randomCocktailEndpoint);
             return ConvertJsonToCocktailRecipe(data, 0);
         }
 
-        public async Task<CocktailRecipe> GetCocktailRecipeByName(string input)
+        public static async Task<CocktailRecipe> GetCocktailRecipeByName(string input)
         {
             var data = await GetJsonFromServer(_searchEndpoint + _searchEndpointByName + input);
             return ConvertJsonToCocktailRecipe(data, 0);
         }
 
-        public async Task<List<CocktailRecipe>> GetCocktailRecipesByFirstLetter(string input)
+        public static async Task<List<CocktailRecipe>> GetCocktailRecipesByFirstLetter(string input)
         {
             if (!MyRegex().IsMatch(input))
             {
@@ -45,7 +45,7 @@ namespace exam.data.repo
             //return ConvertJsonToCocktailRecipe(data, 0);
         }
 
-        public async Task<Ingredient> GetIngredient(string input)
+        public static async Task<Ingredient> GetIngredient(string input)
         {
             var data = await GetJsonFromServer(_searchEndpoint + _searchEndpointByIngredient + input);
             return ConvertJsonToIngredient(data);

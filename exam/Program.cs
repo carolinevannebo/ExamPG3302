@@ -9,6 +9,7 @@ namespace exam
         {
             var eventHandler = new logic.EventHandler();
             var displayMessages = new DisplayMessages();
+
             try
             {
                 Console.WriteLine("Starting the program...");

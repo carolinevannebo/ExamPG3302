@@ -7,26 +7,17 @@ namespace examTest;
 [TestFixture]
 public class MainRepositoryTests
 {
-    private MainRepository _mainRepository;
-
-    [SetUp]
-    public void Setup()
-    {
-        _mainRepository = new MainRepository();
-    }
-
     [Test]
     public async Task GetRandomCocktailRecipe_ReturnsData()
     {
         // Act
-        var result = await _mainRepository.GetRandomCocktailRecipe();
+        var result = await MainRepository.GetRandomCocktailRecipe();
 
         // Assert
         Assert.That(result, Is.Not.Null);
 
         if (result != null)
             Assert.That(string.IsNullOrEmpty(result.idDrink), Is.False);
-        
     }
 
     [Test]
@@ -36,7 +27,7 @@ public class MainRepositoryTests
         string cocktailName = "margarita";
 
         // Act
-        var result = await _mainRepository.GetCocktailRecipeByName(cocktailName);
+        var result = await MainRepository.GetCocktailRecipeByName(cocktailName);
 
         //Assert
         Assert.That(result, Is.Not.Null);
@@ -52,7 +43,7 @@ public class MainRepositoryTests
         string firstLetter = "w";
 
         // Act
-        var result = await _mainRepository.GetCocktailRecipesByFirstLetter(firstLetter);
+        var result = await MainRepository.GetCocktailRecipesByFirstLetter(firstLetter);
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -70,7 +61,7 @@ public class MainRepositoryTests
         string ingredient = "vodka";
 
         // Act
-        var result = await _mainRepository.GetIngredient(ingredient);
+        var result = await MainRepository.GetIngredient(ingredient);
 
         // Assert
         Assert.That(result, Is.Not.Null);

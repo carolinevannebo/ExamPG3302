@@ -72,7 +72,7 @@ namespace exam.logic
 
         public void GetRandomCocktailRecipe()
         {
-            var randomRecipe = mainRepository.GetRandomCocktailRecipe().Result;
+            var randomRecipe = MainRepository.GetRandomCocktailRecipe().Result;
             Console.WriteLine(randomRecipe.ToString());
             SecondMenu(randomRecipe);
         }

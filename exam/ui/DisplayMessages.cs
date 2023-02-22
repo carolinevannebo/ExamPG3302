@@ -7,8 +7,13 @@ namespace exam.ui
     {
         #region
         public string? userName;
+        public UserData userData;
         #endregion
 
+        public DisplayMessages()
+        {
+            userData = new UserData();
+        }
 
         public void PrintInitialWelcome()
         {
@@ -22,7 +27,6 @@ namespace exam.ui
             userName = Console.ReadLine();
 
             // Save the username to a JSON file
-            var userData = new UserData();
             if (userName != null)
             {
                 // Ensuring the username is never empty
@@ -66,8 +70,6 @@ namespace exam.ui
 
         public void PrintInitialMenu()
         {
-            //hent brukernavn todo refaktorer
-            var userData = new UserData();
             userName = userData.Load().UserName;
 
             Console.WriteLine("\n");
@@ -82,8 +84,6 @@ namespace exam.ui
 
         public void PrintSecondMenu()
         {
-            //hent brukernavn todo refaktorer
-            var userData = new UserData();
             userName = userData.Load().UserName;
 
             Console.WriteLine($"\nIs there anything else I can do for you, {userName}?\n");
