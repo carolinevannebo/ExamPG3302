@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace exam.logic
 {
-    public class EventHandler //todo bruk solid til å dele opp denne klassen, er ganske mange funksjoner, kanskje hvert valg er en egen klasse?
+    public class EventHandler
     {
         #region Properties
 

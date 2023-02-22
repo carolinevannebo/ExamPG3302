@@ -11,13 +11,11 @@ namespace examTest.logic;
 [TestFixture]
 public class QuizLogicTests
 {
-    private QuizLogic _quizLogic;
     private XmlFileWriter _xmlFileWriter;
 
     [SetUp]
     public void Setup()
     {
-        _quizLogic = new QuizLogic();
         _xmlFileWriter = new XmlFileWriter();
     }
 
@@ -25,7 +23,7 @@ public class QuizLogicTests
     public void GetQuiz_ReturnsListOfQuestionTemplates()
     {
         // Act
-        var quizData = _quizLogic.GetQuiz();
+        var quizData = QuizLogic.GetQuiz();
 
         // Assert
         Assert.That(quizData, Is.Not.Null);
@@ -63,7 +61,7 @@ public class QuizLogicTests
         var expected = "Based on your answers you should make an Old Fashioned!";
 
         // Act
-        var actual = _quizLogic.GetResults();
+        var actual = QuizLogic.GetResults();
 
         // Assert
         Assert.That(actual, Is.EqualTo(expected));

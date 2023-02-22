@@ -108,11 +108,11 @@ namespace exam.logic
                 {
                     case ConsoleKey.D1:
                         SearchByName();
-                        break;
+                        return;
 
                     case ConsoleKey.D2:
                         SearchByLetter();
-                        break;
+                        return;
 
                     default:
                         Console.WriteLine("\n");

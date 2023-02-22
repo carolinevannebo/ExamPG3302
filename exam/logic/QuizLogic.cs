@@ -8,8 +8,8 @@ namespace exam.logic
 {
     public class QuizLogic
     {
-        private List<string> _answers; //= new List<string>();
-        private UserData _userData;
+        private readonly List<string> _answers;
+        private readonly UserData _userData;
 
         public QuizLogic()
         {
@@ -17,10 +17,10 @@ namespace exam.logic
             _userData = new UserData();
         }
 
-        public List<QuestionTemplate> GetQuiz()
+        public static List<QuestionTemplate> GetQuiz()
         {
             // Create a new instance of the FileReader class
-            TxtFileReader fileReader = new TxtFileReader("../../../data/quiz/quiz.txt");
+            TxtFileReader fileReader = new("../../../data/quiz/quiz.txt");
 
             // Read and parse the quiz file
             var quizData = fileReader.ReadQuizFile();
@@ -64,7 +64,7 @@ namespace exam.logic
                 Console.WriteLine("Could not retrieve questions");
 
                 // Fallback to main menu so program does not crash
-                EventHandler eventHandler = new EventHandler();
+                EventHandler eventHandler = new();
                 eventHandler.InitialMenu();
             }
         }
@@ -100,7 +100,7 @@ namespace exam.logic
             }
         }
 
-        public string GetResults()
+        public static string GetResults()
         {
             // New instance of file reader to retrieve the results
             var xmlFileReader = new XmlFileReader();
@@ -112,7 +112,7 @@ namespace exam.logic
             int cCount = answerCounts["c"];
             int dCount = answerCounts["d"];
 
-            // Return result based on scores -- Would this do better as switch case?
+            // Return result based on scores
             if (aCount > bCount && aCount > cCount && aCount > dCount)
             {
                 return "Based on your answers you should make a Bloody Mary!";
@@ -135,30 +135,19 @@ namespace exam.logic
             }
         }
 
-        public CocktailRecipe GetCocktailBasedOnResult()
+        public static CocktailRecipe GetCocktailBasedOnResult()
         {
             var result = GetResults();
             var repo = new MainRepository();
-            var cocktailName = "";
 
-            switch (result.ToLower())
+            var cocktailName = result.ToLower() switch
             {
-                case string s when s.Contains("bloody mary"):
-                    cocktailName = "bloody mary";
-                    break;
-                case string s when s.Contains("gin and tonic"):
-                    cocktailName = "gin and tonic";
-                    break;
-                case string s when s.Contains("mojito"):
-                    cocktailName = "mojito";
-                    break;
-                case string s when s.Contains("old fashioned"):
-                    cocktailName = "old fashioned";
-                    break;
-                default:
-                    cocktailName = "whiskey sour";
-                    break;
-            }
+                string s when s.Contains("bloody mary") => "bloody mary",
+                string s when s.Contains("gin and tonic") => "gin and tonic",
+                string s when s.Contains("mojito") => "mojito",
+                string s when s.Contains("old fashioned") => "old fashioned",
+                _ => "whiskey sour",
+            };
 
             return repo.GetCocktailRecipeByName(cocktailName).Result;
 
@@ -169,11 +158,11 @@ namespace exam.logic
             var userName = _userData.Load().UserName;
             Console.WriteLine($"Would you like to try the recipe, {userName}?\n");
 
-            EventHandler eventHandler = new EventHandler();
+            EventHandler eventHandler = new();
 
             var answer = Console.ReadLine();
 
-            if (answer.ToLower() != "no")
+            if (answer!.ToLower() != "no")
             {
                 var cocktail = GetCocktailBasedOnResult();
                 Console.WriteLine(cocktail.ToString());
