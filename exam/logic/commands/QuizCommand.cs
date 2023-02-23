@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace exam.logic.events
+namespace exam.logic.commands
 {
     public class QuizCommand : ICommand
     {

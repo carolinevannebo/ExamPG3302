@@ -10,12 +10,10 @@ namespace exam.logic
     public class QuizLogic
     {
         private readonly List<string> _answers;
-        //private readonly UserData _userData;
 
         public QuizLogic()
         {
             _answers = new List<string>();
-            //_userData = new UserData();
         }
 
         public static List<QuestionTemplate> GetQuiz()
@@ -63,10 +61,7 @@ namespace exam.logic
             else
             {
                 Console.WriteLine("Could not retrieve questions");
-
-                // Fallback to main menu so program does not crash
-                EventHandler eventHandler = new();
-                eventHandler.InitialMenu();
+                return;
             }
         }
 
@@ -96,7 +91,6 @@ namespace exam.logic
 
                     // Fallback so user can try again and program does not crash
                     var newAnswer = Console.ReadKey();
-
                     return RegisterAnswer(question, newAnswer);
             }
         }
@@ -139,7 +133,6 @@ namespace exam.logic
         public static CocktailRecipe GetCocktailBasedOnResult()
         {
             var result = GetResults();
-            //var repo = new MainRepository();
 
             var cocktailName = result.ToLower() switch
             {
@@ -159,7 +152,7 @@ namespace exam.logic
             var userName = UserData.Load().UserName;
             Console.WriteLine($"Would you like to try the recipe, {userName}?\n");
 
-            EventHandler eventHandler = new();
+            EventHandler eventHandler = new(); // ny instanse... riktig?
 
             var answer = Console.ReadLine();
 
@@ -171,7 +164,7 @@ namespace exam.logic
             }
             else
             {
-                eventHandler.InitialMenu();
+                return;
             }
 
         }

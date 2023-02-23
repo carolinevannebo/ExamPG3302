@@ -2,7 +2,7 @@
 using exam.data.repo;
 using exam.data.userData;
 using exam.data.database;
-using exam.logic.events;
+using exam.logic.commands;
 using exam.logic.factory;
 using exam.ui;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace exam.logic
             _commands = commands;
         }
 
-        public EventHandler() { }
+        public EventHandler() { } // trenger ikke denne?
 
         public void SecondMenu(CocktailRecipe cocktail) {
             while(true)
@@ -41,12 +41,10 @@ namespace exam.logic
                                 // Insert the cocktail into the database
                                 DatabaseHelper.InsertCocktail(cocktail);
                                 Console.WriteLine("Success!\n");
-                                //InitialMenu();
                             }
                             catch (Exception e)
                             {
                                 Console.WriteLine($"An error occurred while saving the cocktail: {e.Message}");
-                                //InitialMenu();
                             }
                             return;
                         case ConsoleKey.D2:
@@ -63,7 +61,7 @@ namespace exam.logic
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("An error occured, " + e.Message); // ?
+                    Console.WriteLine("An error occured, " + e.Message);
                 }
             }
         }

@@ -6,20 +6,12 @@ namespace exam.data.repo
 {
     public partial class MainRepository
     {
-
-        #region Properties
         private const string _searchEndpoint = "https://www.thecocktaildb.com/api/json/v1/1/search.php?";
         private const string _searchEndpointByName = "s="; //margarita
         private const string _searchEndpointByFirstLetter = "f="; //a
         private const string _searchEndpointByIngredient = "i="; //vodka
         private const string _randomCocktailEndpoint = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 
-        #endregion
-        public MainRepository()
-        {
-        }
-
-        #region Methods
         public static async Task<CocktailRecipe> GetRandomCocktailRecipe()
         {
             var data = await GetJsonFromServer(_randomCocktailEndpoint);
@@ -144,7 +136,5 @@ namespace exam.data.repo
 
         [GeneratedRegex("^[a-zA-Z]$")]
         private static partial Regex MyRegex();
-
-        #endregion
     }
 }

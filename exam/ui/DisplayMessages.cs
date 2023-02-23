@@ -5,15 +5,7 @@ namespace exam.ui
 {
     public class DisplayMessages
     {
-        #region
         public string? userName;
-        //public UserData userData;
-        #endregion
-
-        public DisplayMessages()
-        {
-            //userData = new UserData();
-        }
 
         public void PrintInitialWelcome()
         {
@@ -30,7 +22,7 @@ namespace exam.ui
             if (userName != null)
             {
                 // Ensuring the username is never empty
-                if (userName == "" || userName == null || userName == "\n" || userName == "\t")
+                if (userName == "" || userName == "\n" || userName == "\t")
                     userName = "mystery user";
                 
                 var userDataModel = new UserDataModel(userName);
@@ -64,7 +56,7 @@ namespace exam.ui
 
             Console.WriteLine("\n");
             Console.WriteLine(responses.GetValueOrDefault(answer, "I interpret that as a yes! Let's start."));
-            Thread.Sleep(1500); // tiny delay
+            Thread.Sleep(1000); // tiny delay
             Console.Clear();
         }
 
@@ -92,7 +84,7 @@ namespace exam.ui
             Console.WriteLine("3: Quit program\n");
         }
 
-        public void PrintSearchMenu()
+        public static void PrintSearchMenu()
         {
             Console.WriteLine("1: Search by name");
             Console.WriteLine("2: Search by first letter\n");

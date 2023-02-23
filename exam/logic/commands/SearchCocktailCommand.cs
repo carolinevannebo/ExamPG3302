@@ -1,7 +1,7 @@
 ﻿using System;
 using exam.logic;
 
-namespace exam.logic.events
+namespace exam.logic.commands
 {
     public class SearchCocktailCommand : ICommand
     {

@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using exam.logic;
-using exam.logic.events;
+using exam.logic.commands;
 using exam.ui;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -7,15 +7,6 @@ namespace exam.logic
 {
     public class CollectionBrowserLogic
     {
-        //private readonly UserData _userData;
-        //private readonly EventHandler _eventHandler;
-
-        public CollectionBrowserLogic()
-        {
-            //_userData = new UserData();
-            //_eventHandler = new EventHandler();
-        }
-
         // You need to refactor the shit out of this method
         public void BrowseSavedRecipes()
         {
@@ -78,7 +69,7 @@ namespace exam.logic
 
                         if (string.IsNullOrEmpty(commando))
                         {
-                            Console.WriteLine($"\nMy apologies {userName}, but I did not understand your command: '{commando}'"); // den er stuck her
+                            Console.WriteLine($"\nMy apologies {userName}, but I did not understand your command: '{commando}'");
                             continue; // goes back to start of sub-loop until input is not null or empty
                         }
 
@@ -120,7 +111,6 @@ namespace exam.logic
                                     BrowseSavedRecipes();
                                     return;
                                 case ConsoleKey.D2:
-                                    //_eventHandler.InitialMenu();
                                     return;
                                 default:
                                     Console.WriteLine("\nYour choice was not recognized: " + choice + "\n");
@@ -135,7 +125,6 @@ namespace exam.logic
                 Console.WriteLine($"You have not saved any cocktail recipes yet, {userName}");
                 Console.WriteLine("To do so you can choose a random recipe, search for one, or take a quiz.");
                 Thread.Sleep(1000);
-                //_eventHandler.InitialMenu();
             }
         }
     }

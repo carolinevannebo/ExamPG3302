@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace exam.logic.events
+namespace exam.logic.commands
 {
     public class RandomCocktailCommand : ICommand
     {

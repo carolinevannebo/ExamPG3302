@@ -24,26 +24,26 @@ namespace exam.data.quiz
             string[] contentLines = content.Split('\n');
 
 
-            foreach (var line in contentLines)
+            foreach (var element in contentLines)
             {
-                var indicator = line.Substring(0, 1);
+                var indicator = element.Substring(0, 1);
 
                 switch (indicator)
                 {
                     case "a":
-                        OptionA = line;  // ikke egt en linje, men et element. du må endre navn
+                        OptionA = element;
                         break;
                     case "b":
-                        OptionB = line;
+                        OptionB = element;
                         break;
                     case "c":
-                        OptionC = line;
+                        OptionC = element;
                         break;
                     case "d":
-                        OptionD = line;
+                        OptionD = element;
                         break;
                     default:
-                        Question = line;
+                        Question = element;
                         break;
                 }
             }

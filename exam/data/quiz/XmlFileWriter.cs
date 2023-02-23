@@ -39,7 +39,7 @@ namespace exam.data.quiz
                     }
                 }
 
-                // Added results section for readability
+                // Added results section
                 writer.WriteStartElement("Results");
 
                 foreach (var answerCount in answerCounts)

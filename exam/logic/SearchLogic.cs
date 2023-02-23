@@ -7,17 +7,15 @@ namespace exam.logic
 {
     public class SearchLogic
     {
-        //private readonly UserData _userData;
         private readonly DisplayMessages _displayMessages;
         private readonly MainRepository _mainRepository;
         private readonly EventHandler _eventHandler;
 
         public SearchLogic()
         {
-            //_userData = new UserData();
             _displayMessages = new DisplayMessages();
             _mainRepository = new MainRepository();
-            _eventHandler = new EventHandler();
+            _eventHandler = new EventHandler(); // det funker, men er det feil å lage ny instanse?
         }
 
         public void SearchIngredientsFromApi()
@@ -29,10 +27,10 @@ namespace exam.logic
 
             Console.WriteLine("\n");
             Console.WriteLine(ingredient.ToString());
-            _eventHandler.InitialMenu();
+            return;
         }
 
-        private void SearchByName() // shit input validering, gjør bedre caro
+        private void SearchByName()
         {
             string inputName;
 
@@ -58,7 +56,7 @@ namespace exam.logic
                 }
                 else
                 {
-                    // Unreachable code
+                    // Unreachable code :(
                     Console.WriteLine("I can't seem to find the recipe you are looking for, my apologies");
                     SearchCocktailRecipesFromApi();
                 }
@@ -129,7 +127,7 @@ namespace exam.logic
         public void SearchCocktailRecipesFromApi()
         {
             // Print menu
-            _displayMessages.PrintSearchMenu();
+            DisplayMessages.PrintSearchMenu();
 
             while (true)
             {
@@ -159,6 +157,7 @@ namespace exam.logic
             var randomRecipe = MainRepository.GetRandomCocktailRecipe().Result;
             Console.WriteLine(randomRecipe.ToString());
             _eventHandler.SecondMenu(randomRecipe);
+            return;
         }
     }
 }
