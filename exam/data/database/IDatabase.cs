@@ -1,5 +1,5 @@
 ﻿using System;
-using exam.logic;
+using exam.logic.factory;
 
 namespace exam.data.database
 {

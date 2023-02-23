@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.SQLite;
-using exam.logic;
+using exam.logic.factory;
 
 namespace exam.data.database
 {

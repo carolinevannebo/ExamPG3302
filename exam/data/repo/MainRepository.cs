@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Text.RegularExpressions;
-using exam.logic;
+using exam.logic.factory;
 
 namespace exam.data.repo
 {

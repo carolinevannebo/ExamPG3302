@@ -1,18 +1,19 @@
 ﻿using System;
 using exam.data.database;
 using exam.data.userData;
+using exam.logic.factory;
 
 namespace exam.logic
 {
     public class CollectionBrowserLogic
     {
         //private readonly UserData _userData;
-        private readonly EventHandler _eventHandler;
+        //private readonly EventHandler _eventHandler;
 
         public CollectionBrowserLogic()
         {
             //_userData = new UserData();
-            _eventHandler = new EventHandler();
+            //_eventHandler = new EventHandler();
         }
 
         // You need to refactor the shit out of this method
@@ -53,7 +54,7 @@ namespace exam.logic
 
                     if (input.ToLower().Contains("main menu"))
                     {
-                        _eventHandler.InitialMenu();
+                        //_eventHandler.InitialMenu();
                         return;
                     }
 
@@ -119,7 +120,7 @@ namespace exam.logic
                                     BrowseSavedRecipes();
                                     return;
                                 case ConsoleKey.D2:
-                                    _eventHandler.InitialMenu();
+                                    //_eventHandler.InitialMenu();
                                     return;
                                 default:
                                     Console.WriteLine("\nYour choice was not recognized: " + choice + "\n");
@@ -133,8 +134,8 @@ namespace exam.logic
             {
                 Console.WriteLine($"You have not saved any cocktail recipes yet, {userName}");
                 Console.WriteLine("To do so you can choose a random recipe, search for one, or take a quiz.");
-                Thread.Sleep(1500);
-                _eventHandler.InitialMenu();
+                Thread.Sleep(1000);
+                //_eventHandler.InitialMenu();
             }
         }
     }

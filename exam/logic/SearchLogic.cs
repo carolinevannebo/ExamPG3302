@@ -32,11 +32,19 @@ namespace exam.logic
             _eventHandler.InitialMenu();
         }
 
-        private void SearchByName()
+        private void SearchByName() // shit input validering, gjør bedre caro
         {
-            Console.WriteLine("\nPlease type the recipe name you're looking for\n");
+            string inputName;
 
-            var inputName = Console.ReadLine();
+            do
+            {
+                Console.WriteLine("\nPlease type the recipe name you're looking for\n");
+                inputName = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(inputName))
+                    Console.WriteLine($"At least give me some letters to work with {UserData.Load().UserName}");
+            } while (string.IsNullOrEmpty(inputName));
+            
 
             try
             {
@@ -50,11 +58,17 @@ namespace exam.logic
                 }
                 else
                 {
+                    // Unreachable code
                     Console.WriteLine("I can't seem to find the recipe you are looking for, my apologies");
                     SearchCocktailRecipesFromApi();
                 }
             }
 
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine("Failed to connect to the API: " + e.Message);
+                SearchCocktailRecipesFromApi();
+            }
             catch (Exception e)
             {
                 Console.WriteLine("Something went wrong: " + e.Message);
@@ -95,7 +109,6 @@ namespace exam.logic
 
                 if (input.ToLower().Contains("main menu"))
                 {
-                    _eventHandler.InitialMenu();
                     return;
                 }
 
@@ -139,6 +152,13 @@ namespace exam.logic
                         continue;
                 }
             }
+        }
+
+        public void GetRandomCocktailRecipe()
+        {
+            var randomRecipe = MainRepository.GetRandomCocktailRecipe().Result;
+            Console.WriteLine(randomRecipe.ToString());
+            _eventHandler.SecondMenu(randomRecipe);
         }
     }
 }

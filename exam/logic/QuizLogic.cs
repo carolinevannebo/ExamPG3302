@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using exam.data.userData;
 using exam.data.quiz;
 using exam.data.repo;
+using exam.logic.factory;
 
 namespace exam.logic
 {

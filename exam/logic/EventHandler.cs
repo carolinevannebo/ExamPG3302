@@ -2,33 +2,33 @@
 using exam.data.repo;
 using exam.data.userData;
 using exam.data.database;
+using exam.logic.events;
+using exam.logic.factory;
 using exam.ui;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace exam.logic
 {
     public class EventHandler
     {
-        #region Properties
+        private readonly ICommand[] _commands;
+        readonly DisplayMessages _displayMessages = new();
 
-        //readonly MainRepository mainRepository = new();
-        readonly DisplayMessages displayMessages = new();
+        public EventHandler(ICommand[] commands)
+        {
+            _commands = commands;
+        }
 
-        #endregion
-
-        #region Methods
+        public EventHandler() { }
 
         public void SecondMenu(CocktailRecipe cocktail) {
-            bool isRunning = true;
-            while(isRunning)
+            while(true)
             {
                 try
                 {
-                    //hent brukernavn
-                    //var userData = new UserData();
-                    var userName = UserData.Load().UserName;
-
-                    displayMessages.PrintSecondMenu();
+                    _displayMessages.PrintSecondMenu();
                     var choice = Console.ReadKey();
 
                     switch (choice.Key)
@@ -41,25 +41,23 @@ namespace exam.logic
                                 // Insert the cocktail into the database
                                 DatabaseHelper.InsertCocktail(cocktail);
                                 Console.WriteLine("Success!\n");
-                                InitialMenu();
+                                //InitialMenu();
                             }
                             catch (Exception e)
                             {
                                 Console.WriteLine($"An error occurred while saving the cocktail: {e.Message}");
-                                InitialMenu();
+                                //InitialMenu();
                             }
                             return;
                         case ConsoleKey.D2:
-                            InitialMenu();
                             return;
                         case ConsoleKey.D3:
-                            Console.WriteLine($"\nGoodbye {userName}");
-                            isRunning = false;
+                            Console.WriteLine($"Goodbye {UserData.Load().UserName}");
+                            Environment.Exit(0);
                             return;
                         default:
                             Console.WriteLine("\nYour choice was not recognized: " + choice);
-                            SecondMenu(cocktail);
-                            return;
+                            continue;
                     }
 
                 }
@@ -70,65 +68,60 @@ namespace exam.logic
             }
         }
 
-        public void GetRandomCocktailRecipe()
-        {
-            var randomRecipe = MainRepository.GetRandomCocktailRecipe().Result;
-            Console.WriteLine(randomRecipe.ToString());
-            SecondMenu(randomRecipe);
-        }
-
         public void InitialMenu()
         {
-            bool isRunning = true;
-            while (isRunning)
+            while (true)
             {
                 try
                 {
-                    var searchLogic = new SearchLogic(); // finn ut hva som er forskjellen på måtene man lager ny instanse av en klasse
-                    var quizLogic = new QuizLogic();
-                    //var userData = new UserData();
-                    var collectionBrowserLogic = new CollectionBrowserLogic();
-
-                    var userName = UserData.Load().UserName;
-
-                    displayMessages.PrintInitialMenu();
+                    _displayMessages.PrintInitialMenu();
                     var choice = Console.ReadKey();
 
                     Console.WriteLine("\n");
+
+                    ICommand? command = null;
 
                     switch (choice.Key)
                     {
                         case ConsoleKey.D1:
                             Console.WriteLine("==== Random Cocktail Recipe ====\n");
-                            GetRandomCocktailRecipe();
-                            return;
+                            command = _commands.OfType<RandomCocktailCommand>().SingleOrDefault();
+                            break;
                         case ConsoleKey.D2:
                             Console.WriteLine("==== Search Cocktail Recipe ====\n");
-                            searchLogic.SearchCocktailRecipesFromApi();
-                            return;
+                            command = _commands.OfType<SearchCocktailCommand>().SingleOrDefault();
+                            break;
                         case ConsoleKey.D3:
                             Console.WriteLine("==== Research Ingredient ====\n");
-                            searchLogic.SearchIngredientsFromApi();
-                            return;
+                            command = _commands.OfType<SearchIngredientCommand>().SingleOrDefault();
+                            break;
                         case ConsoleKey.D4:
                             Console.WriteLine("==== Browse Your Collection ====\n");
-                            collectionBrowserLogic.BrowseSavedRecipes();
-                            return;
+                            command = _commands.OfType<BrowseSavedCocktailsCommand>().SingleOrDefault();
+                            break;
                         case ConsoleKey.D5:
                             Console.WriteLine("==== Your Best Suited Cocktail Quiz ====\n");
-                            quizLogic.PrintAndReadQuiz();
-                            quizLogic.PresentCocktailBasedOnResult();
-                            return;
+                            command = _commands.OfType<QuizCommand>().SingleOrDefault();
+                            break;
                         case ConsoleKey.D6:
                             Console.WriteLine("==== Quit Program ====\n");
-                            Console.WriteLine($"Goodbye {userName}");
-                            isRunning = false;
-                            return;
+                            Console.WriteLine($"Goodbye {UserData.Load().UserName}");
+                            Environment.Exit(0);
+                            break;
                         default:
                             Console.WriteLine("Your choice was not recognized: " + choice + "\n");
-                            InitialMenu();
-                            return;
+                            continue;
                     }
+
+                    if (command!= null)
+                    {
+                        command.Execute();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Command not found");
+                    }
+                    
                 }
                 catch (Exception e)
                 {
@@ -137,6 +130,5 @@ namespace exam.logic
             }
         }
 
-        #endregion
     }
 }
