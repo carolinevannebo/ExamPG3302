@@ -7,12 +7,12 @@ namespace exam.ui
     {
         #region
         public string? userName;
-        public UserData userData;
+        //public UserData userData;
         #endregion
 
         public DisplayMessages()
         {
-            userData = new UserData();
+            //userData = new UserData();
         }
 
         public void PrintInitialWelcome()

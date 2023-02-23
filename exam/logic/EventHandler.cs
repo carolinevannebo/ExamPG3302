@@ -25,7 +25,7 @@ namespace exam.logic
                 try
                 {
                     //hent brukernavn
-                    var userData = new UserData();
+                    //var userData = new UserData();
                     var userName = UserData.Load().UserName;
 
                     displayMessages.PrintSecondMenu();

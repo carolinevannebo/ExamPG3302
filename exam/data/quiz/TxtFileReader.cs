@@ -5,11 +5,10 @@ namespace exam.data.quiz
 {
     public class TxtFileReader
     {
-        private readonly string filePath; //la til readonly
+        private readonly string filePath;
 
         public TxtFileReader(string filePath)
         {
-            // if (ValidateFilePath(filePath)... // Throw new exception)
             this.filePath = filePath;
         }
 

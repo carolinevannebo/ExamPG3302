@@ -7,8 +7,8 @@ namespace exam.data.database
     public sealed class SQLiteDatabase : IDatabase
     {
 
-        private static readonly Lazy<SQLiteDatabase> lazy = new Lazy<SQLiteDatabase>(() => new SQLiteDatabase());
-        private SQLiteConnection connection;
+        private static readonly Lazy<SQLiteDatabase> lazy = new(() => new SQLiteDatabase());
+        private readonly SQLiteConnection connection;
 
         private SQLiteDatabase()
         {
@@ -17,7 +17,7 @@ namespace exam.data.database
 
             // Create the cocktails table if it does not exist
             connection.Open();
-            using (SQLiteCommand command = new SQLiteCommand("CREATE TABLE IF NOT EXISTS cocktails (idDrink TEXT PRIMARY KEY, strDrink TEXT, strCategory TEXT, strAlcoholic TEXT, strGlass TEXT, strInstructions TEXT, strIngredients TEXT, strMeasurements TEXT)", connection))
+            using (SQLiteCommand command = new("CREATE TABLE IF NOT EXISTS cocktails (idDrink TEXT PRIMARY KEY, strDrink TEXT, strCategory TEXT, strAlcoholic TEXT, strGlass TEXT, strInstructions TEXT, strIngredients TEXT, strMeasurements TEXT)", connection))
             {
                 command.ExecuteNonQuery();
             }
@@ -33,7 +33,7 @@ namespace exam.data.database
             {
                 connection.Open();
 
-                using (SQLiteCommand command = new SQLiteCommand("INSERT INTO cocktails (idDrink, strDrink, strCategory, strAlcoholic, strGlass, strInstructions, strIngredients, strMeasurements) VALUES (@idDrink, @strDrink, @strCategory, @strAlcoholic, @strGlass, @strInstructions, @strIngredients, @strMeasurements)", connection))
+                using (SQLiteCommand command = new("INSERT INTO cocktails (idDrink, strDrink, strCategory, strAlcoholic, strGlass, strInstructions, strIngredients, strMeasurements) VALUES (@idDrink, @strDrink, @strCategory, @strAlcoholic, @strGlass, @strInstructions, @strIngredients, @strMeasurements)", connection))
                 {
                     command.Parameters.AddWithValue("@idDrink", cocktail.idDrink);
                     command.Parameters.AddWithValue("@strDrink", cocktail.strDrink);
@@ -62,7 +62,7 @@ namespace exam.data.database
             {
                 connection.Open();
 
-                using (SQLiteCommand command = new SQLiteCommand("DELETE FROM cocktails WHERE idDrink=@idDrink", connection))
+                using (SQLiteCommand command = new("DELETE FROM cocktails WHERE idDrink=@idDrink", connection))
                 {
                     command.Parameters.AddWithValue("@idDrink", cocktail.idDrink);
                     command.ExecuteNonQuery();
@@ -81,7 +81,7 @@ namespace exam.data.database
         {
             connection.Open();
 
-            using (SQLiteCommand command = new SQLiteCommand("SELECT * FROM cocktails WHERE idDrink=@idDrink", connection))
+            using (SQLiteCommand command = new("SELECT * FROM cocktails WHERE idDrink=@idDrink", connection))
             {
                 command.Parameters.AddWithValue("@idDrink", idDrink);
 
@@ -91,8 +91,8 @@ namespace exam.data.database
                     {
                         CocktailRecipe cocktail = new CocktailRecipe()
                         {
-                            idDrink = reader["idDrink"].ToString(),
-                            strDrink = reader["strDrink"].ToString(),
+                            idDrink = reader["idDrink"].ToString()!,
+                            strDrink = reader["strDrink"].ToString()!,
                             strCategory = reader["strCategory"].ToString(),
                             strAlcoholic = reader["strAlcoholic"].ToString(),
                             strGlass = reader["strGlass"].ToString(),
@@ -115,20 +115,20 @@ namespace exam.data.database
 
         public List<CocktailRecipe> GetAllCocktails()
         {
-            List<CocktailRecipe> cocktails = new List<CocktailRecipe>();
+            List<CocktailRecipe> cocktails = new();
 
             connection.Open();
 
-            using (SQLiteCommand command = new SQLiteCommand("SELECT * FROM cocktails", connection))
+            using (SQLiteCommand command = new("SELECT * FROM cocktails", connection))
             {
                 using (SQLiteDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        CocktailRecipe cocktail = new CocktailRecipe()
+                        CocktailRecipe cocktail = new()
                         {
-                            idDrink = reader["idDrink"].ToString(),
-                            strDrink = reader["strDrink"].ToString(),
+                            idDrink = reader["idDrink"].ToString()!,
+                            strDrink = reader["strDrink"].ToString()!,
                             strCategory = reader["strCategory"].ToString(),
                             strAlcoholic = reader["strAlcoholic"].ToString(),
                             strGlass = reader["strGlass"].ToString(),

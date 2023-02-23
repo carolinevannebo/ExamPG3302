@@ -42,7 +42,6 @@ namespace exam.data.repo
             var data = await GetJsonFromServer(_searchEndpoint + _searchEndpointByFirstLetter + input);
 
             return ConvertJsonToCocktailRecipeList(data);
-            //return ConvertJsonToCocktailRecipe(data, 0);
         }
 
         public static async Task<Ingredient> GetIngredient(string input)
