@@ -7,7 +7,6 @@ namespace exam.logic
 {
     public class CollectionBrowserLogic
     {
-        // You need to refactor the shit out of this method
         public void BrowseSavedRecipes()
         {
             // Load username
@@ -44,10 +43,8 @@ namespace exam.logic
                     }
 
                     if (input.ToLower().Contains("main menu"))
-                    {
-                        //_eventHandler.InitialMenu();
                         return;
-                    }
+                    
 
                     // Define how to find cocktail
                     var chosenCocktail = allCocktails.FirstOrDefault(cocktail => cocktail.idDrink == input);

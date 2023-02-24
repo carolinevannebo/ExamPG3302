@@ -22,7 +22,6 @@
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="System.Data.SQLite" />
     <None Remove="data\quiz\" />
-    <None Remove="logic\events\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
@@ -31,7 +30,6 @@
     <Folder Include="data\repo\" />
     <Folder Include="data\database\" />
     <Folder Include="data\quiz\" />
-    <Folder Include="logic\events\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />

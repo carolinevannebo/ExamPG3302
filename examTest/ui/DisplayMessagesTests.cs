@@ -17,7 +17,6 @@ namespace examTest.ui
         [Test]
         public void PrintSecondWelcome_ShouldPrintExpectedOutput()
         {
-            // Arrange
             var input = "ja";
             var expectedOutput = "Supert! La oss komme i gang.";
 
@@ -33,10 +32,8 @@ namespace examTest.ui
             // Set username
             _displayMessages.userName = "Ola Nordmann";
 
-            // Act
             _displayMessages.PrintSecondWelcome();
 
-            // Assert
             Assert.That(output.ToString(), Does.Contain($"Nice to meet you Ola Nordmann!"));
             Assert.That(output.ToString(), Does.Contain($"Are you ready to make some cocktails?"));
             Assert.That(output.ToString(), Does.Contain(expectedOutput));

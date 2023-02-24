@@ -15,7 +15,7 @@ namespace exam.logic
         {
             _displayMessages = new DisplayMessages();
             _mainRepository = new MainRepository();
-            _eventHandler = new EventHandler(); // det funker, men er det feil å lage ny instanse?
+            _eventHandler = new EventHandler();
         }
 
         public void SearchIngredientsFromApi()

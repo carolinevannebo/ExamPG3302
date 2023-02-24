@@ -89,7 +89,7 @@ namespace exam.logic
                     Console.WriteLine("");
                     Console.WriteLine("Your choice was not recognized: " + answer);
 
-                    // Fallback so user can try again and program does not crash
+                    // Fallback so user can try again
                     var newAnswer = Console.ReadKey();
                     return RegisterAnswer(question, newAnswer);
             }
@@ -152,7 +152,7 @@ namespace exam.logic
             var userName = UserData.Load().UserName;
             Console.WriteLine($"Would you like to try the recipe, {userName}?\n");
 
-            EventHandler eventHandler = new(); // ny instanse... riktig?
+            EventHandler eventHandler = new();
 
             var answer = Console.ReadLine();
 

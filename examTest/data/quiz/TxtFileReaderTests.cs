@@ -20,10 +20,8 @@ namespace examTest.data.quiz
         [Test]
         public void ReadQuizFile_ReturnsListOfQuestionTemplate()
         {
-            // Act
             var collection = _txtFileReader.ReadQuizFile();
 
-            // Assert
             Assert.That(collection, Is.Not.Null);
             Assert.That(collection, Is.Not.Empty);
             Assert.That(collection.Count, Is.EqualTo(5));

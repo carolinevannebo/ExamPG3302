@@ -22,10 +22,8 @@ public class QuizLogicTests
     [Test]
     public void GetQuiz_ReturnsListOfQuestionTemplates()
     {
-        // Act
         var quizData = QuizLogic.GetQuiz();
 
-        // Assert
         Assert.That(quizData, Is.Not.Null);
         Assert.That(quizData, Is.InstanceOf<List<QuestionTemplate>>());
 
@@ -41,7 +39,6 @@ public class QuizLogicTests
     [Test]
     public void GetResults_ReturnsExpectedResult()
     {
-        // Arrange
         var xmlFilePath = "answers.xml";
 
         var answerCounts = new Dictionary<string, int>

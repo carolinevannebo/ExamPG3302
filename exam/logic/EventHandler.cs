@@ -21,7 +21,7 @@ namespace exam.logic
             _commands = commands;
         }
 
-        public EventHandler() { } // trenger ikke denne?
+        public EventHandler() { } 
 
         public void SecondMenu(CocktailRecipe cocktail) {
             while(true)

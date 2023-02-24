@@ -11,7 +11,6 @@ namespace examTest
         [Test]
         public void ServicesShouldNotBeNull()
         {
-            // Arrange
             var serviceProvider = new ServiceCollection()
                 .AddSingleton<ICommand, RandomCocktailCommand>().AddScoped<SearchLogic>()
                 .AddSingleton<ICommand, SearchCocktailCommand>()
@@ -20,10 +19,8 @@ namespace examTest
                 .AddSingleton<ICommand, QuizCommand>().AddScoped<QuizLogic>()
                 .BuildServiceProvider();
 
-            // Act
             var services = serviceProvider.GetServices<ICommand>().ToArray();
 
-            // Assert
             foreach (var service in services)
             {
                 Assert.That(service, Is.Not.Null);
